@@ -2,7 +2,9 @@ package frc.team2036.robot.command
 
 import edu.wpi.first.wpilibj.command.Command
 import frc.team2036.robot.joystick
-import frc.team2036.robot.subsystem.Drivetrain
+import frc.team2036.robot.subsystem.drivetrain
+
+val followJoystick = FollowJoystick()
 
 /**
  * A Command that connects the joystick to the drivetrain
@@ -10,15 +12,12 @@ import frc.team2036.robot.subsystem.Drivetrain
  */
 class FollowJoystick : Command() {
 
-    //Constructs an immutable drivetrain
-    private val drivetrain = Drivetrain()
-
     /**
      * Constructor for a FollowJoystick command
      * Just states that this command needs the drivetrain
      */
     init {
-        requires(Drivetrain())
+        requires(drivetrain)
     }
 
     /**

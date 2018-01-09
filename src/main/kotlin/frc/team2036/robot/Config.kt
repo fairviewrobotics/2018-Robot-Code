@@ -23,5 +23,4 @@ val config = kton {
             "backRight" to 0
         }
     }
-    "motorScale" to .5
 }
