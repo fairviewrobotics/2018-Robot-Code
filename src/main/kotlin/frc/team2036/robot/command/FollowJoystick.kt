@@ -1,8 +1,7 @@
 package frc.team2036.robot.command
 
-import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.command.Command
-import frc.team2036.robot.config
+import frc.team2036.robot.joystick
 import frc.team2036.robot.subsystem.Drivetrain
 
 /**
@@ -10,9 +9,6 @@ import frc.team2036.robot.subsystem.Drivetrain
  * Just sends all joystick inputs to the robot
  */
 class FollowJoystick : Command() {
-
-    //Stores the WPILib joystick for internal use
-    private val joystick = Joystick(config("ports")["joystick"] as Int)
 
     //Constructs an immutable drivetrain
     private val drivetrain = Drivetrain()
@@ -30,7 +26,7 @@ class FollowJoystick : Command() {
      * Just takes in the joystick axes and passes them to the drivetrain to handle driving
      */
     override fun execute() {
-        drivetrain.drive(joystick.x, joystick.y)
+        drivetrain.drive(processJoystickValue(joystick.x), processJoystickValue(joystick.y))
     }
 
     /**
@@ -46,4 +42,14 @@ class FollowJoystick : Command() {
     override fun isFinished(): Boolean {
         return false
     }
+
+    /**
+     * Takes in a joystick x or y value and processes the value so that they can be adjusted
+     * Would ideally work in polar and then return x and y components, but joystick has no polar methods
+     */
+    private fun processJoystickValue(component: Double): Double {
+        //TODO("implement")
+        return component
+    }
+
 }
