@@ -41,7 +41,7 @@ class FollowJoystick : Command() {
     }
 
     /**
-     * TODO figure out how this works
+     * FollowJoystick is never finished unless it is interrupted
      */
     override fun isFinished(): Boolean {
         return false
