@@ -23,4 +23,5 @@ val config = kton {
             "backRight" to 0
         }
     }
+    "verboseLogging" to true
 }

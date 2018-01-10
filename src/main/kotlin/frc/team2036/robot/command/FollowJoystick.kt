@@ -2,6 +2,7 @@ package frc.team2036.robot.command
 
 import edu.wpi.first.wpilibj.command.Command
 import frc.team2036.robot.joystick
+import frc.team2036.robot.logger
 import frc.team2036.robot.subsystem.drivetrain
 
 val followJoystick = FollowJoystick()
@@ -29,9 +30,17 @@ class FollowJoystick : Command() {
     }
 
     /**
+     * What happens when the command starts
+     */
+    override fun start() {
+        logger.log("Flow", "FollowJoystick command starting.")
+    }
+
+    /**
      * When the command is over, it sets the drivetrain to move by no amount
      */
     override fun end() {
+        logger.log("Flow", "FollowJoystick command ending.")
         drivetrain.drive(0.0, 0.0)
     }
 

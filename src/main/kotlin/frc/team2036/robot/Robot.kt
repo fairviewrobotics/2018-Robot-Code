@@ -15,7 +15,8 @@ class Robot : IterativeRobot() {
      * Entry code doesn't go in a constructor, goes here
      */
     override fun robotInit() {
-
+        logger.log("Flow", "Robot initializing.")
+        //TODO log all config stuff and ports here?
     }
 
     /**
@@ -23,7 +24,7 @@ class Robot : IterativeRobot() {
      * Defines what commands to run over the autonomous period
      */
     override fun autonomousInit() {
-
+        logger.log("Flow", "Robot autonomous starting.")
     }
 
     /**
@@ -39,7 +40,7 @@ class Robot : IterativeRobot() {
      * What happens when the robot enters teleop
      */
     override fun teleopInit() {
-
+        logger.log("Flow", "Robot teleoperated starting.")
     }
 
     /**
