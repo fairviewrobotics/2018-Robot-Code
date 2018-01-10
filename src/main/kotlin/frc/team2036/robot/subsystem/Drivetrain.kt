@@ -4,8 +4,10 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup
 import edu.wpi.first.wpilibj.Talon
 import edu.wpi.first.wpilibj.command.Subsystem
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
+import frc.team2036.robot.LogType
 import frc.team2036.robot.command.followJoystick
 import frc.team2036.robot.config
+import frc.team2036.robot.logger
 
 val drivetrain = Drivetrain()
 
@@ -38,6 +40,7 @@ class Drivetrain : Subsystem() {
      */
     fun drive(x: Double, y: Double) {
         this.drive.arcadeDrive(x, y)
+        logger.log("Drivetrain movement", "Drivetrain set to move by ($x, $y).", LogType.DEBUG)
     }
 
 }

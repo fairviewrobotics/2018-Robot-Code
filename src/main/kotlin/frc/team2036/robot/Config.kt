@@ -23,5 +23,5 @@ val config = kton {
             "backRight" to 0
         }
     }
-    "verboseLogging" to true
+    "verboseLogging" to true //Whether the logger should show all messages, or if it should just show what the drivers need to see
 }

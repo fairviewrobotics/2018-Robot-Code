@@ -1,6 +1,7 @@
 package frc.team2036.robot.command
 
 import edu.wpi.first.wpilibj.command.Command
+import frc.team2036.robot.LogType
 import frc.team2036.robot.joystick
 import frc.team2036.robot.logger
 import frc.team2036.robot.subsystem.drivetrain
@@ -33,14 +34,14 @@ class FollowJoystick : Command() {
      * What happens when the command starts
      */
     override fun start() {
-        logger.log("Flow", "FollowJoystick command starting.")
+        logger.log("Program Flow", "FollowJoystick command starting.", LogType.TRACE)
     }
 
     /**
      * When the command is over, it sets the drivetrain to move by no amount
      */
     override fun end() {
-        logger.log("Flow", "FollowJoystick command ending.")
+        logger.log("Program Flow", "FollowJoystick command ending.", LogType.TRACE)
         drivetrain.drive(0.0, 0.0)
     }
 
