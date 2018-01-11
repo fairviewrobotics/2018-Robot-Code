@@ -6,6 +6,10 @@ import frc.team2036.robot.config
 
 val ramp = Ramp()
 
+/**
+ * The ramps extend out of the robot to allow other robots to climb on top of it and gain the high ground
+ * TODO: Allow ramp to activate only during the last 30 seconds of the match
+ */
 class Ramp : Subsystem() {
 
     val servoL = Servo(config("ports")("ramps")["servoL"] as Int)
