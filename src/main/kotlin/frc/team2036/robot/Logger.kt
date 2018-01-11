@@ -30,7 +30,9 @@ class Logger {
     }
 
     //Stores an array of log tags that the drivers will see regardless of whether verboseLogging is true or not
-    private val necessaryLogs = arrayOf("")
+    private val necessaryLogs = arrayOf(
+            "Driver Error",
+            "CubeGrip State")
     //All the messages that have been sent through the logger; only would be necessary for debugging purposes
     private val allMessages = mutableListOf<Message>()
 

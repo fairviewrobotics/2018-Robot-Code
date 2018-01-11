@@ -23,12 +23,12 @@ val config = kton {
             "backRight" to 0
         }
         "ramps" {
-            "servoL" to 0
-            "servoR" to 1
+            "leftServo" to 0
+            "rightServo" to 1
         }
-        "intake" {
-            "left" to 0
-            "right" to 1
+        "cubegrip" {
+            "leftSpark" to 0
+            "rightSpark" to 1
         }
     }
     "verboseLogging" to true //Whether the logger should show all messages, or if it should just show what the drivers need to see
