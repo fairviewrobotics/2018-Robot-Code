@@ -1,12 +1,12 @@
-package frc.team2036.robot.subsystem
+package frc.team2036.robot.cube
 
 import edu.wpi.first.wpilibj.Spark
 import edu.wpi.first.wpilibj.command.Subsystem
 import frc.team2036.robot.config
 
-val cubeGrip = CubeGrip()
+val cubeGrip = Cube()
 
-class CubeGrip : Subsystem() {
+class Cube : Subsystem() {
 
     val leftMotor = Spark(config("ports")("intake")["left"] as Int)
     val rightMotor = Spark(config("ports")("intake")["right"] as Int)

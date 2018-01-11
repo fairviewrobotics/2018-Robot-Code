@@ -1,4 +1,4 @@
-package frc.team2036.robot.subsystem
+package frc.team2036.robot.ramp
 
 import edu.wpi.first.wpilibj.Servo
 import edu.wpi.first.wpilibj.command.Subsystem

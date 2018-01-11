@@ -1,4 +1,4 @@
-package frc.team2036.robot.command
+package frc.team2036.robot.cube
 
 import edu.wpi.first.wpilibj.command.Command
 

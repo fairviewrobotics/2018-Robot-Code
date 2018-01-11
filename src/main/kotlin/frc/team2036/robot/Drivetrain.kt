@@ -1,13 +1,9 @@
-package frc.team2036.robot.subsystem
+package frc.team2036.robot
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup
 import edu.wpi.first.wpilibj.Talon
 import edu.wpi.first.wpilibj.command.Subsystem
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
-import frc.team2036.robot.LogType
-import frc.team2036.robot.command.followJoystick
-import frc.team2036.robot.config
-import frc.team2036.robot.logger
 
 val drivetrain = Drivetrain()
 

@@ -1,7 +1,6 @@
-package frc.team2036.robot.command
+package frc.team2036.robot.ramp
 
 import edu.wpi.first.wpilibj.command.InstantCommand
-import frc.team2036.robot.subsystem.ramp
 
 val releaseRamps = ReleaseRamps()
 
