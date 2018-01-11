@@ -15,7 +15,7 @@ val drivetrain = Drivetrain()
  * Represents a RobotDrive that handles driving
  * This particular implementation uses arcadeDrive as opposed to mecanumDrive_Cartesian, mecanumDrive_Polar, or tankDrive
  */
-class Drivetrain : Subsystem() {
+class Drivetrain internal constructor() : Subsystem() {
 
     private val left = SpeedControllerGroup(
             Talon(config("ports")("wheels")["frontLeft"] as Int),

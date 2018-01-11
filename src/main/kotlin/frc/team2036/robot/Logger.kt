@@ -17,7 +17,7 @@ enum class LogType {
  * A class that handles logging and handles what messages get shown and what don't
  * TODO potentially add support for graphing and doing other dashboard functions through logger
  */
-class Logger {
+class Logger internal constructor() {
 
     /**
      * A class that is used internally to store all logged messages

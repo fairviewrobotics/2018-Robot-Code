@@ -18,7 +18,7 @@ enum class CubeGripState {
  * The cube grip is the subsystem that holds the cubes
  * It is in any of 3 states: intake, output, and idle
  */
-class CubeGrip : Subsystem() {
+class CubeGrip internal constructor() : Subsystem() {
 
     private val leftMotor = Spark(config("ports")("cubegrip")["leftSpark"] as Int) //The left input/output motor
     private val rightMotor = Spark(config("ports")("cubegrip")["rightSpark"] as Int) //The right input/output motor

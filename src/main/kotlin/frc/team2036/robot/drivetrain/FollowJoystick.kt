@@ -11,7 +11,7 @@ val followJoystick = FollowJoystick()
  * A Command that connects the joystick to the drivetrain
  * Just sends all joystick inputs to the robot
  */
-class FollowJoystick : Command() {
+class FollowJoystick internal constructor() : Command() {
 
     /**
      * Constructor for a FollowJoystick command

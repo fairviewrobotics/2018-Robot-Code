@@ -12,7 +12,7 @@ val nothing = SetCubeGripState(CubeGripState.IDLE) //Makes the global command th
  * The CubeGrip subsystem is always either inputting, outputting, or doing nothing
  * However the command is constructed will determine how it will set the CubeGrip state
  */
-class SetCubeGripState(val state: CubeGripState) : InstantCommand() {
+class SetCubeGripState internal constructor(val state: CubeGripState) : InstantCommand() {
 
     /**
      * As a constructor for SetCubeGripState, it says that it requires the CubeGrip subsystem
