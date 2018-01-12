@@ -1,5 +1,7 @@
-package frc.team2036.robot
+package frc.team2036.robot.util
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
+import frc.team2036.robot.config
 import java.time.LocalDateTime
 
 //A global logger object
@@ -40,11 +42,13 @@ class Logger internal constructor() {
      * Actually logs a message; if the tag is contained in necessaryLogs, the message is one a driver can see
      */
     fun log(tag: String, message: String, type: LogType = LogType.INFO) {
-        val logMessage = Message(tag, message, type)
-        println(logMessage)
-        allMessages.add(logMessage)
-        if (config["verboseLogging"] as Boolean || necessaryLogs.contains(tag)) {
-            //TODO put message in dashboard
+        if (allMessages.find { it.message == message } == null) {
+            val logMessage = Message(tag, message, type)
+            SmartDashboard.putString("{$type}: $tag", message)
+            allMessages.add(logMessage)
+            if (config["verboseLogging"] as Boolean || necessaryLogs.contains(tag)) {
+                println(logMessage)
+            }
         }
     }
 
