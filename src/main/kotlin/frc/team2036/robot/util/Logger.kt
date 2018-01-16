@@ -42,13 +42,20 @@ class Logger internal constructor() {
      * Actually logs a message; if the tag is contained in necessaryLogs, the message is one a driver can see
      */
     fun log(tag: String, message: String, type: LogType = LogType.INFO) {
-        if (allMessages.find { it.message == message } == null) {
-            val logMessage = Message(tag, message, type)
-            SmartDashboard.putString("{$type}: $tag", message)
-            allMessages.add(logMessage)
-            if (config["verboseLogging"] as Boolean || necessaryLogs.contains(tag)) {
-                println(logMessage)
-            }
+        val logMessage = Message(tag, message, type)
+        allMessages.add(logMessage)
+        SmartDashboard.putString("{$type}: $tag", message)
+        if (config["verboseLogging"] as Boolean || necessaryLogs.contains(tag) && allMessages.find { it.message == message } == null) {
+            println(logMessage)
+        }
+    }
+
+    fun log(tag: String, data: Double, type: LogType = LogType.INFO) {
+        val logMessage = Message(tag, data.toString(), type)
+        allMessages.add(logMessage)
+        SmartDashboard.putNumber("{$type}: $tag", data)
+        if (config["verboseLogging"] as Boolean || necessaryLogs.contains(tag)) {
+            println(logMessage)
         }
     }
 
