@@ -1,9 +1,9 @@
 package frc.team2036.robot.drivetrain
 
 import edu.wpi.first.wpilibj.command.Command
-import frc.team2036.robot.LogType
 import frc.team2036.robot.joystick
-import frc.team2036.robot.logger
+import frc.team2036.robot.util.LogType
+import frc.team2036.robot.util.logger
 
 val followJoystick = FollowJoystick()
 

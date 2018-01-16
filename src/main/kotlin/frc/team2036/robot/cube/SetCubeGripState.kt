@@ -1,7 +1,7 @@
 package frc.team2036.robot.cube
 
 import edu.wpi.first.wpilibj.command.InstantCommand
-import frc.team2036.robot.logger
+import frc.team2036.robot.util.logger
 
 val intakeCubes = SetCubeGripState(CubeGripState.INPUT) //Makes the global command that will intake cubes
 val outputCubes = SetCubeGripState(CubeGripState.OUTPUT) //Makes the global command that will output cubes

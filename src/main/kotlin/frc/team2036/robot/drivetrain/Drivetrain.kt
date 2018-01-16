@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup
 import edu.wpi.first.wpilibj.Talon
 import edu.wpi.first.wpilibj.command.Subsystem
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
-import frc.team2036.robot.LogType
 import frc.team2036.robot.config
-import frc.team2036.robot.logger
+import frc.team2036.robot.util.LogType
+import frc.team2036.robot.util.logger
 
 val drivetrain = Drivetrain()
 

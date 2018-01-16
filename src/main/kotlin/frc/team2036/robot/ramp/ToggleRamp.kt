@@ -1,7 +1,7 @@
 package frc.team2036.robot.ramp
 
 import edu.wpi.first.wpilibj.command.InstantCommand
-import frc.team2036.robot.logger
+import frc.team2036.robot.util.logger
 
 //A global ToggleRamp object
 val toggleRamp = ToggleRamp()

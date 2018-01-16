@@ -3,9 +3,9 @@ package frc.team2036.robot.ramp
 import edu.wpi.first.wpilibj.Servo
 import edu.wpi.first.wpilibj.Timer
 import edu.wpi.first.wpilibj.command.Subsystem
-import frc.team2036.robot.LogType
 import frc.team2036.robot.config
-import frc.team2036.robot.logger
+import frc.team2036.robot.util.LogType
+import frc.team2036.robot.util.logger
 
 //A global Ramp object
 val ramp = Ramp()
