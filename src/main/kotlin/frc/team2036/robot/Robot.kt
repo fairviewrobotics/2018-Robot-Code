@@ -4,8 +4,6 @@ import edu.wpi.first.wpilibj.IterativeRobot
 import edu.wpi.first.wpilibj.command.Scheduler
 import frc.team2036.robot.util.LogType
 import frc.team2036.robot.util.Logger
-import frc.team2036.robot.util.robotModule
-import org.koin.standalone.StandAloneContext.startKoin
 
 /**
  * Entry point for custom code
@@ -21,7 +19,6 @@ class Robot : IterativeRobot() {
      * Entry code doesn't go in a constructor, goes here
      */
     override fun robotInit() {
-        startKoin(listOf(robotModule))
         logger.log("Program Flow", "Robot initializing.", LogType.TRACE)
         //TODO log all config stuff and ports here?
     }
@@ -56,7 +53,8 @@ class Robot : IterativeRobot() {
     override fun teleopPeriodic() {
         // Scheduler is what handles all the commands, we periodically run the Scheduler for the Commands to work
         Scheduler.getInstance().run()
-        logger.log("Joystick Input", "Joystick coordinates are (${joystick.x}, ${joystick.y}).", LogType.DEBUG)
+        logger.log("Joystick X", joystick.x)
+        logger.log("Joystick Y", joystick.y)
     }
 
 }
