@@ -29,6 +29,7 @@ val config = kton {
         "cubegrip" {
             "leftSpark" to 0
             "rightSpark" to 1
+            "speed" to .5
         }
     }
     "verboseLogging" to true //Whether the logger should show all messages, or if it should just show what the drivers need to see

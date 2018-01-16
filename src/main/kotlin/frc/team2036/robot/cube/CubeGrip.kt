@@ -22,19 +22,33 @@ class CubeGrip internal constructor() : Subsystem() {
 
     private val leftMotor = Spark(config("ports")("cubegrip")["leftSpark"] as Int) //The left input/output motor
     private val rightMotor = Spark(config("ports")("cubegrip")["rightSpark"] as Int) //The right input/output motor
+    private val motorSpeed = config("ports")("cubegrip")["speed"] as Double
     var state: CubeGripState = CubeGripState.IDLE //What the CubeGrip subsystem is doing/set to do at the current moment
+
+    init {
+        rightMotor.inverted = true
+    }
 
     /**
      * Initializes the default command of the CubeGrip subsystem; CubeGrip doesn't have a default command
      */
     override fun initDefaultCommand() {}
 
+    private fun setSpeed(speed: Double) {
+        leftMotor.speed = speed
+        rightMotor.speed = speed
+    }
+
     /**
      * What the CubeGrip does every tick
      * Just moves the motors based on state (eg. if the state is in INPUT, will move the motors such that the subsystem is inputting cubes)
      */
     override fun periodic() {
-        //TODO move motors based on state
+        setSpeed(when (state) {
+            CubeGripState.IDLE -> 0.0
+            CubeGripState.INPUT -> motorSpeed
+            CubeGripState.OUTPUT -> -motorSpeed
+        })
     }
 
 }
