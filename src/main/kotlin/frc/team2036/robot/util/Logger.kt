@@ -53,6 +53,10 @@ class Logger internal constructor() {
         verboseLog(logMessage)
     }
 
+    /**
+     * Logs a numerical message
+     * This logging method passes numbers to the dashboard such that they can be graphed if needed
+     */
     fun log(tag: String, data: Double, type: LogType = LogType.INFO) {
         val logMessage = Message(tag, data.toString(), type)
         allMessages.add(logMessage)
