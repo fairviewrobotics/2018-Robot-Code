@@ -1,5 +1,7 @@
 package frc.team2036.robot.ramp
 
+import edu.wpi.first.wpilibj.DriverStation.MatchType
+import edu.wpi.first.wpilibj.DriverStation.getInstance
 import edu.wpi.first.wpilibj.Servo
 import edu.wpi.first.wpilibj.Timer
 import edu.wpi.first.wpilibj.command.Subsystem
@@ -29,10 +31,9 @@ class Ramp internal constructor() : Subsystem() {
     /**
      * Switches the ramp state (eg. if the ramps are up, puts them down; if they are down, picks them up)
      * Only needs to be called once to switch the state
-     * TODO review this code and ensure that this is how the servos should work
      */
     fun toggleRampState() {
-        if (Timer.getMatchTime() > 30) { //TODO do we really want this limitation?
+        if (getInstance().matchType != MatchType.Practice && Timer.getMatchTime() > 30) {
             logger.log("Driver Error", "Attempted ramp-state toggle before last 30 seconds of match", LogType.WARN)
             return
         }
