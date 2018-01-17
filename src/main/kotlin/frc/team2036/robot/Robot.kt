@@ -20,7 +20,6 @@ class Robot : IterativeRobot() {
      */
     override fun robotInit() {
         logger.log("Program Flow", "Robot initializing.", LogType.TRACE)
-        //TODO log all config stuff and ports here?
     }
 
     /**
