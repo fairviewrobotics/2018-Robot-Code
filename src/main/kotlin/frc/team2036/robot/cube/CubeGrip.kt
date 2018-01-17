@@ -22,7 +22,7 @@ class CubeGrip internal constructor() : Subsystem() {
 
     private val leftMotor = Spark(config("ports")("cubegrip")["leftSpark"] as Int) //The left input/output motor
     private val rightMotor = Spark(config("ports")("cubegrip")["rightSpark"] as Int) //The right input/output motor
-    private val motorSpeed = config("ports")("cubegrip")["speed"] as Double
+    private val motorSpeed = config("speeds")["cubegrip"] as Double
     var state: CubeGripState = CubeGripState.IDLE //What the CubeGrip subsystem is doing/set to do at the current moment
 
     init {
