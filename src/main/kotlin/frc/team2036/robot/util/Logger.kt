@@ -38,6 +38,12 @@ class Logger internal constructor() {
     //All the messages that have been sent through the logger; only would be necessary for debugging purposes
     private val allMessages = mutableListOf<Message>()
 
+    private fun verboseLog(message: Message) {
+        if (config["verboseLogging"] as Boolean || necessaryLogs.contains(message.tag)) {
+            println(message)
+        }
+    }
+
     /**
      * Actually logs a message; if the tag is contained in necessaryLogs, the message is one a driver can see
      */
@@ -45,18 +51,14 @@ class Logger internal constructor() {
         val logMessage = Message(tag, message, type)
         allMessages.add(logMessage)
         SmartDashboard.putString("{$type}: $tag", message)
-        if (config["verboseLogging"] as Boolean || necessaryLogs.contains(tag) && allMessages.find { it.message == message } == null) {
-            println(logMessage)
-        }
+        verboseLog(logMessage)
     }
 
     fun log(tag: String, data: Double, type: LogType = LogType.INFO) {
         val logMessage = Message(tag, data.toString(), type)
         allMessages.add(logMessage)
         SmartDashboard.putNumber("{$type}: $tag", data)
-        if (config["verboseLogging"] as Boolean || necessaryLogs.contains(tag)) {
-            println(logMessage)
-        }
+        verboseLog(logMessage)
     }
 
 }
