@@ -1,7 +1,6 @@
 package frc.team2036.robot.drivetrain
 
-import edu.wpi.first.wpilibj.SpeedControllerGroup
-import edu.wpi.first.wpilibj.Talon
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX
 import edu.wpi.first.wpilibj.command.Subsystem
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import frc.team2036.robot.config
@@ -17,21 +16,26 @@ val drivetrain = Drivetrain()
  */
 class Drivetrain internal constructor() : Subsystem() {
 
-    private val left = SpeedControllerGroup(
-            Talon(config("ports")("wheels")["frontLeft"] as Int),
-            Talon(config("ports")("wheels")["backLeft"] as Int))
-    private val right = SpeedControllerGroup(
-            Talon(config("ports")("wheels")["frontRight"] as Int),
-            Talon(config("ports")("wheels")["backRight"] as Int))
+    private val frontLeft = WPI_TalonSRX(config("ports")("wheels")["frontLeft"] as Int)
+    private val backLeft = WPI_TalonSRX(config("ports")("wheels")["backLeft"] as Int)
+
+    private val frontRight = WPI_TalonSRX(config("ports")("wheels")["frontRight"] as Int)
+    private val backRight = WPI_TalonSRX(config("ports")("wheels")["backRight"] as Int)
 
     //The robot drive is the actual part of the code that controls robot movement; is constructed with Talons
-    private val drive = DifferentialDrive(left, right)
+    private val drive = DifferentialDrive(frontLeft, frontRight)
 
     /**
      * Sets the default command as a followJoystick command
+     * It also sets the back wheels to follow the front wheels
+     * @see <a href="https://github.com/CrossTheRoadElec/Phoenix-Examples-Languages/tree/master/Java/SixTalonArcadeDrive">Example Code</a>
+     * @see <a href="https://wpilib.screenstepslive.com/s/currentCS/m/java/l/479803-talon-srx-can">WPI Docs</a>
      */
     override fun initDefaultCommand() {
         this.defaultCommand = followJoystick
+
+        backLeft.follow(frontLeft)
+        backRight.follow(frontRight)
     }
 
     /**
