@@ -20,6 +20,7 @@ class Robot : IterativeRobot() {
      */
     override fun robotInit() {
         logger.log("Program Flow", "Robot initializing.", LogType.TRACE)
+        initButtons()
     }
 
     /**
