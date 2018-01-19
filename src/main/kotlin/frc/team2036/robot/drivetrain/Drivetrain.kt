@@ -50,4 +50,12 @@ class Drivetrain internal constructor() : Subsystem() {
         logger.log("Drivetrain movement", "Drivetrain set to move by ($x, $y).", LogType.DEBUG)
     }
 
+    fun setLeftSpeed(v: Double) {
+        frontLeft.set(v)
+    }
+
+    fun setRightSpeed(v: Double) {
+        frontRight.set(v)
+    }
+
 }

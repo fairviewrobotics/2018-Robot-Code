@@ -2,7 +2,7 @@ plugins {
     id "java"
     id "eclipse"
     id "idea"
-    id "jaci.openrio.gradle.GradleRIO" version "2018.01.07"
+    id "jaci.openrio.gradle.GradleRIO" version "2018.01.18"
     id "org.jetbrains.kotlin.jvm" version "1.2.10"
 }
 
@@ -46,6 +46,7 @@ dependencies {
     compile ctre()
     compile navx()
     compile openrio.powerup.matchData()
+    compile pathfinder()
     // Required by kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib"
     // For our custom config
