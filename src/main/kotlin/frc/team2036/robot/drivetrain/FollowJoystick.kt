@@ -15,6 +15,9 @@ val followJoystick = FollowJoystick()
  */
 class FollowJoystick internal constructor() : Command() {
 
+    private val xMultiplier = config("speeds")("wheels")["xMultiplier"] as Double
+    private val yMultiplier = config("speeds")("wheels")["yMultiplier"] as Double
+
     /**
      * Constructor for a FollowJoystick command
      * Just states that this command needs the drivetrain
@@ -28,7 +31,7 @@ class FollowJoystick internal constructor() : Command() {
      * Just takes in the joystick axes and passes them to the drivetrain to handle driving
      */
     override fun execute() {
-        drivetrain.drive(processJoystickValue(joystick.x), processJoystickValue(joystick.y))
+        drivetrain.drive(processJoystickValue(joystick.x) * xMultiplier, processJoystickValue(joystick.y) * yMultiplier)
     }
 
     /**
@@ -58,7 +61,7 @@ class FollowJoystick internal constructor() : Command() {
      * Would ideally work in polar and then return x and y components, but joystick has no polar methods
      */
     private fun processJoystickValue(component: Double): Double {
-        val minimumWheelRotation = config("speeds")("wheels")["minimumWheelRotation"] as Int
+        val minimumWheelRotation = config("speeds")("wheels")["minimumWheelRotation"] as Double
         return (1 - minimumWheelRotation) * (pow(component, 3.0)) + minimumWheelRotation * if(component > 0) 1 else -1
     }
 
