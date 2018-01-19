@@ -7,6 +7,7 @@ import frc.team2036.robot.config
 import frc.team2036.robot.util.LogType
 import frc.team2036.robot.util.logger
 
+
 val drivetrain = Drivetrain()
 
 /**
@@ -25,6 +26,14 @@ class Drivetrain internal constructor() : Subsystem() {
     //The robot drive is the actual part of the code that controls robot movement; is constructed with Talons
     private val drive = DifferentialDrive(frontLeft, frontRight)
 
+    init {
+        frontLeft.inverted = true
+        backLeft.inverted = true
+
+        backLeft.follow(frontLeft)
+        backRight.follow(frontRight)
+    }
+
     /**
      * Sets the default command as a followJoystick command
      * It also sets the back wheels to follow the front wheels
@@ -33,12 +42,6 @@ class Drivetrain internal constructor() : Subsystem() {
      */
     override fun initDefaultCommand() {
         this.defaultCommand = followJoystick
-
-        frontLeft.inverted = true
-        backLeft.inverted = true
-
-        backLeft.follow(frontLeft)
-        backRight.follow(frontRight)
     }
 
     /**
