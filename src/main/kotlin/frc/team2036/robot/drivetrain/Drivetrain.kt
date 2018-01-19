@@ -49,8 +49,7 @@ class Drivetrain internal constructor() : Subsystem() {
      */
     fun drive(x: Double, y: Double) {
         this.drive.arcadeDrive(-x, y)
-        // TODO UPDATE LOGGER
-        logger.log("Drivetrain movement", "Drivetrain set to move by ($x, $y).", LogType.DEBUG)
+        logger.log("Drivetrain movement", "Drivetrain set to move by (${-x}, $y).", LogType.DEBUG)
     }
 
     fun setLeftSpeed(v: Double) {
