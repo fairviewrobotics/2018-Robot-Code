@@ -34,6 +34,9 @@ class Drivetrain internal constructor() : Subsystem() {
     override fun initDefaultCommand() {
         this.defaultCommand = followJoystick
 
+        frontLeft.inverted = true
+        backLeft.inverted = true
+
         backLeft.follow(frontLeft)
         backRight.follow(frontRight)
     }
@@ -42,7 +45,8 @@ class Drivetrain internal constructor() : Subsystem() {
      * Takes in an x movement and a y movement and actually moves the drivetrain by that amount
      */
     fun drive(x: Double, y: Double) {
-        this.drive.arcadeDrive(x, y)
+        this.drive.arcadeDrive(-x, y)
+        // TODO UPDATE LOGGER
         logger.log("Drivetrain movement", "Drivetrain set to move by ($x, $y).", LogType.DEBUG)
     }
 
