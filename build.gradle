@@ -50,7 +50,6 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib"
     // For our custom config
     compile "org.jire.kton:KTON:1.0.1"
-    compile 'org.koin:koin-core:0.8.0'
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')

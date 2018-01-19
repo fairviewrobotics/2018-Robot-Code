@@ -2,8 +2,11 @@ package frc.team2036.robot
 
 import edu.wpi.first.wpilibj.IterativeRobot
 import edu.wpi.first.wpilibj.command.Scheduler
+import frc.team2036.robot.cube.cubeGrip
+import frc.team2036.robot.drivetrain.drivetrain
+import frc.team2036.robot.ramp.ramp
 import frc.team2036.robot.util.LogType
-import frc.team2036.robot.util.Logger
+import frc.team2036.robot.util.logger
 
 /**
  * Entry point for custom code
@@ -12,15 +15,15 @@ import frc.team2036.robot.util.Logger
  */
 class Robot : IterativeRobot() {
 
-    private val logger = Logger()
+    private val robotSubsystems = arrayOf(cubeGrip, drivetrain, ramp)
 
     /**
      * The entry point for a robot, run at the very beginning
      * Entry code doesn't go in a constructor, goes here
      */
     override fun robotInit() {
-        logger.log("Program Flow", "Robot initializing.", LogType.TRACE)
-        initButtons()
+        logger.log("Program Flow", "Robot initializing with ${robotSubsystems.size} subsystems.", LogType.TRACE)
+        initButtons() //TODO: move this to teleopInit?
     }
 
     /**
