@@ -26,10 +26,28 @@ val config = kton {
             "leftServo" to 0
             "rightServo" to 1
         }
-        "cubegrip" {
+        "cubeGrip" {
             "leftSpark" to 0
             "rightSpark" to 1
-            "speed" to .5
+        }
+    }
+    "speeds" {
+        "wheels" {
+            "minimumWheelRotation" to 0.05
+            "xMultiplier" to 0.7
+            "yMultiplier" to 0.9
+            "deadZoneRadius" to 0.1
+        }
+        "cubegrip" to 0.5
+    }
+    "buttons" {
+        "ramps" {
+            "toggleButton" to 0
+        }
+        "cubeGrip" {
+            "inputButton" to 1
+            "outputButton" to 2
+            "idleButton" to 3
         }
     }
     "verboseLogging" to true //Whether the logger should show all messages, or if it should just show what the drivers need to see

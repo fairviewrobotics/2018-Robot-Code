@@ -1,9 +1,11 @@
 package frc.team2036.robot.drivetrain
 
 import edu.wpi.first.wpilibj.command.Command
+import frc.team2036.robot.config
 import frc.team2036.robot.joystick
 import frc.team2036.robot.util.LogType
 import frc.team2036.robot.util.logger
+import java.lang.Math.pow
 
 val followJoystick = FollowJoystick()
 
@@ -56,8 +58,8 @@ class FollowJoystick internal constructor() : Command() {
      * Would ideally work in polar and then return x and y components, but joystick has no polar methods
      */
     private fun processJoystickValue(component: Double): Double {
-        //TODO("implement")
-        return component
+        val minimumWheelRotation = config("speeds")("wheels")["minimumWheelRotation"] as Int
+        return (1 - minimumWheelRotation) * (pow(component, 3.0)) + minimumWheelRotation * if(component > 0) 1 else -1
     }
 
 }

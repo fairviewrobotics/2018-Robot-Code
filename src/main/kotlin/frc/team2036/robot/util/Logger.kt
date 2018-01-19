@@ -37,7 +37,10 @@ class Logger internal constructor() {
     //All the messages that have been sent through the logger; only would be necessary for debugging purposes
     private val allMessages = mutableListOf<Message>()
 
-    private fun verboseLog(message: Message) {
+    /**
+     * Prints the given message conditionally: if the message is tagged with a necessary tag or verboseLogging is enabled
+     */
+    private fun conditionalPrint(message: Message) {
         if (config["verboseLogging"] as Boolean || necessaryLogs.contains(message.tag)) {
             println(message)
         }
@@ -50,14 +53,18 @@ class Logger internal constructor() {
         val logMessage = Message(tag, message, type)
         allMessages.add(logMessage)
         SmartDashboard.putString("{$type}: $tag", message)
-        verboseLog(logMessage)
+        conditionalPrint(logMessage)
     }
 
+    /**
+     * Logs a numerical message
+     * This logging method passes numbers to the dashboard such that they can be graphed if needed
+     */
     fun log(tag: String, data: Double, type: LogType = LogType.INFO) {
         val logMessage = Message(tag, data.toString(), type)
         allMessages.add(logMessage)
         SmartDashboard.putNumber("{$type}: $tag", data)
-        verboseLog(logMessage)
+        conditionalPrint(logMessage)
     }
 
 }
