@@ -2,8 +2,10 @@ package frc.team2036.robot
 
 import edu.wpi.first.wpilibj.IterativeRobot
 import edu.wpi.first.wpilibj.command.Scheduler
+import frc.team2036.robot.drivetrain.drivetrain
 import frc.team2036.robot.util.LogType
 import frc.team2036.robot.util.Logger
+
 
 /**
  * Entry point for custom code
@@ -20,6 +22,8 @@ class Robot : IterativeRobot() {
      */
     override fun robotInit() {
         logger.log("Program Flow", "Robot initializing.", LogType.TRACE)
+        // TODO: why does this make the robot move? maybe instead of global variables we should create them locally?
+        drivetrain
     }
 
     /**
