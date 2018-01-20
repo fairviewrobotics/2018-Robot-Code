@@ -47,8 +47,8 @@ class Autonomous internal constructor() : Command() {
      * Just takes in the joystick axes and passes them to the drivetrain to handle driving
      */
     override fun execute() {
-        val encoder_position_left = 0
-        val encoder_position_right = 0
+        val encoder_position_left = drivetrain.frontLeftEncoder.get()
+        val encoder_position_right = drivetrain.frontRightEncoder.get()
 
         val l = left.calculate(encoder_position_left);
         val r = right.calculate(encoder_position_right);
@@ -89,13 +89,13 @@ class Autonomous internal constructor() : Command() {
         val wheel_diameter = 0.1524 //6 inches in meters
         val ticks_per_revolution = 1000
 
-        val left_encoder_position = 0
+        val left_encoder_position = drivetrain.frontLeftEncoder.get()
         left.configureEncoder(left_encoder_position, ticks_per_revolution, wheel_diameter);
         left.configurePIDVA(1.0, 0.0, 0.0, 1 / 1.7, 0.0);
 
-        val right_encoder_position = 0
-        left.configureEncoder(left_encoder_position, ticks_per_revolution, wheel_diameter);
-        left.configurePIDVA(1.0, 0.0, 0.0, 1 / 1.7, 0.0);
+        val right_encoder_position = drivetrain.frontRightEncoder.get()
+        right.configureEncoder(right_encoder_position, ticks_per_revolution, wheel_diameter);
+        right.configurePIDVA(1.0, 0.0, 0.0, 1 / 1.7, 0.0);
 
     }
 
