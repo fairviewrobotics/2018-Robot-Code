@@ -23,12 +23,12 @@ val config = kton {
             "backRight" to 0
         }
         "ramps" {
-            "leftServo" to 0
-            "rightServo" to 1
+            "leftServo" to 11
+            "rightServo" to 12
         }
         "cubeGrip" {
-            "leftSpark" to 0
-            "rightSpark" to 1
+            "leftSpark" to 14
+            "rightSpark" to 13
         }
     }
     "speeds" {
@@ -38,11 +38,11 @@ val config = kton {
             "yMultiplier" to 0.9
             "deadZoneRadius" to 0.1
         }
-        "cubegrip" to 0.5
+        "cubeGrip" to 0.5
     }
     "buttons" {
         "ramps" {
-            "toggleButton" to 0
+            "toggleButton" to 15
         }
         "cubeGrip" {
             "inputButton" to 1
