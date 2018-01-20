@@ -47,22 +47,6 @@ class Autonomous internal constructor() : Command() {
      * Just takes in the joystick axes and passes them to the drivetrain to handle driving
      */
     override fun execute() {
-        val left = EncoderFollower(modifier.leftTrajectory)
-        val right = EncoderFollower(modifier.rightTrajectory)
-
-        // Encoder Position is the current, cumulative position of your encoder. If you're using an SRX, this will be the
-        // 'getEncPosition' function.
-        // 1000 is the amount of encoder ticks per full revolution
-        // Wheel Diameter is the diameter of your wheels (or pulley for a track system) in meters
-        val encoder_position = 0 //replace later
-        val wheel_diameter = 1.0 //replace later
-        left.configureEncoder(encoder_position, 1000, wheel_diameter);
-
-        left.configurePIDVA(1.0, 0.0, 0.0, 1 / 1.7, 0.0);
-
-        val output = left.calculate(encoder_position)
-
-
         val encoder_position_left = 0
         val encoder_position_right = 0
 
@@ -93,6 +77,25 @@ class Autonomous internal constructor() : Command() {
         val config = Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0)
         val trajectory = Pathfinder.generate(points, config)
         val modifier = TankModifier(trajectory).modify(0.5)
+
+        val left = EncoderFollower(modifier.leftTrajectory)
+        val right = EncoderFollower(modifier.rightTrajectory)
+
+        // Encoder Position is the current, cumulative position of your encoder. If you're using an SRX, this will be the
+        // 'getEncPosition' function.
+        // 1000 is the amount of encoder ticks per full revolution
+        // Wheel Diameter is the diameter of your wheels (or pulley for a track system) in meters
+
+        val wheel_diameter = 0.1524 //6 inches in meters
+        val ticks_per_revolution = 1000
+
+        val left_encoder_position = 0
+        left.configureEncoder(left_encoder_position, ticks_per_revolution, wheel_diameter);
+        left.configurePIDVA(1.0, 0.0, 0.0, 1 / 1.7, 0.0);
+
+        val right_encoder_position = 0
+        left.configureEncoder(left_encoder_position, ticks_per_revolution, wheel_diameter);
+        left.configurePIDVA(1.0, 0.0, 0.0, 1 / 1.7, 0.0);
 
     }
 
