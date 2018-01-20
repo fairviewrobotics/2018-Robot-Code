@@ -31,7 +31,7 @@ val config = kton {
             "rightSpark" to 13
         }
         "encoders" {
-            "frontLeft" {
+            "backRight" {
                 "a" to 2
                 "b" to 3
             }
@@ -43,7 +43,7 @@ val config = kton {
                 "a" to 6
                 "b" to 7
             }
-            "backRight" {
+            "frontLeft" {
                 "a" to 4
                 "b" to 5
             }

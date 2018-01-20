@@ -66,6 +66,12 @@ class Drivetrain internal constructor() : Subsystem() {
     fun drive(x: Double, y: Double) {
         this.drive.arcadeDrive(-x, y)
         logger.log("Drivetrain movement", "Drivetrain set to move by (${-x}, $y).", LogType.DEBUG)
+
+        logger.log("Back Left Encoder", backLeftEncoder.get().toDouble())
+        logger.log("Front Left Encoder", frontLeftEncoder.get().toDouble())
+        logger.log("Back Right Encoder", backRightEncoder.get().toDouble())
+        logger.log("Front Right Encoder", frontRightEncoder.get().toDouble())
+
     }
 
     fun setLeftSpeed(v: Double) {
