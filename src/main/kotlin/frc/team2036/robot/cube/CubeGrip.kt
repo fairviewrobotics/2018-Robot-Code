@@ -25,18 +25,18 @@ class CubeGrip internal constructor() : Subsystem() {
     private val motorSpeed = config("speeds")["cubeGrip"] as Double
     var state: CubeGripState = CubeGripState.IDLE //What the CubeGrip subsystem is doing/set to do at the current moment
 
-    init {
-        rightMotor.inverted = true
-    }
-
     /**
      * Initializes the default command of the CubeGrip subsystem; CubeGrip doesn't have a default command
      */
     override fun initDefaultCommand() {}
 
+    /**
+     * Sets both motor speeds
+     * Because both motors should always be going in opposite directions, passes opposite values to both motors
+     */
     private fun setSpeed(speed: Double) {
         leftMotor.speed = speed
-        rightMotor.speed = speed
+        rightMotor.speed = -speed
     }
 
     /**
