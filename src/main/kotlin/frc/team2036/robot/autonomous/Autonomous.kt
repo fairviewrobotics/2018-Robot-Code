@@ -1,10 +1,8 @@
 package frc.team2036.robot.autonomous
 
-
 import edu.wpi.first.wpilibj.command.Command
 import frc.team2036.robot.config
 import frc.team2036.robot.drivetrain.drivetrain
-import frc.team2036.robot.joystick
 import frc.team2036.robot.util.LogType
 import frc.team2036.robot.util.logger
 import java.lang.Math.pow
@@ -14,14 +12,7 @@ import jaci.pathfinder.Waypoint
 import jaci.pathfinder.followers.EncoderFollower
 import jaci.pathfinder.modifiers.TankModifier
 
-
-
-
-
-
-
 val autonomous = Autonomous()
-
 
 /**
  * A Command that connects the joystick to the drivetrain

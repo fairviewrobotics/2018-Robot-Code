@@ -24,8 +24,6 @@ class Robot : IterativeRobot() {
     override fun robotInit() {
         logger.log("Program Flow", "Robot initializing with ${robotSubsystems.size} subsystems.", LogType.TRACE)
         initButtons() //TODO: move this to teleopInit?
-        // TODO: why does this make the robot move? maybe instead of global variables we should create them locally?
-        drivetrain
     }
 
     /**

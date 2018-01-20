@@ -1,5 +1,6 @@
 package frc.team2036.robot
 
+import edu.wpi.first.wpilibj.CounterBase
 import org.jire.kton.kton
 
 /**
@@ -31,6 +32,7 @@ val config = kton {
             "rightSpark" to 13
         }
         "encoders" {
+            "type" to CounterBase.EncodingType.k2X
             "backRight" {
                 "a" to 2
                 "b" to 3

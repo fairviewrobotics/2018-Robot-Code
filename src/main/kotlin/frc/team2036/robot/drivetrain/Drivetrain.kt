@@ -19,33 +19,38 @@ val drivetrain = Drivetrain()
  */
 class Drivetrain internal constructor() : Subsystem() {
 
+    /**
+     * Constructs all the wheels aas SRX Talons
+     */
     private val frontLeft = WPI_TalonSRX(config("ports")("wheels")["frontLeft"] as Int)
     private val backLeft = WPI_TalonSRX(config("ports")("wheels")["backLeft"] as Int)
-
     private val frontRight = WPI_TalonSRX(config("ports")("wheels")["frontRight"] as Int)
     private val backRight = WPI_TalonSRX(config("ports")("wheels")["backRight"] as Int)
 
-    //The robot drive is the actual part of the code that controls robot movement; is constructed with Talons
+    //The robot drive is the actual part of the code that controls robot movement; is constructed with the front talons
     private val drive = DifferentialDrive(frontLeft, frontRight)
 
-    // Encoders
-    private val encodingType = CounterBase.EncodingType.k2X
-
+    /**
+     * Makes all the encoders from constants defined in config
+     */
+    private val encodingType = config("ports")("encoders")["type"] as CounterBase.EncodingType
     val frontLeftEncoder = Encoder(config("ports")("encoders")("frontLeft")["a"] as Int,
             config("ports")("encoders")("frontLeft")["b"] as Int, false, encodingType)
     val backLeftEncoder = Encoder(config("ports")("encoders")("backLeft")["a"] as Int,
             config("ports")("encoders")("backLeft")["b"] as Int, false, encodingType)
-
     val frontRightEncoder = Encoder(config("ports")("encoders")("frontRight")["a"] as Int,
             config("ports")("encoders")("frontRight")["b"] as Int, false, encodingType)
     val backRightEncoder = Encoder(config("ports")("encoders")("backRight")["a"] as Int,
             config("ports")("encoders")("backRight")["b"] as Int, false, encodingType)
 
 
+    /**
+     * Constructor for a drivetrain
+     * Inverts the left wheels and sets the back wheels to follow the front wheels
+     */
     init {
         frontLeft.inverted = true
         backLeft.inverted = true
-
         backLeft.follow(frontLeft)
         backRight.follow(frontRight)
     }
@@ -74,10 +79,16 @@ class Drivetrain internal constructor() : Subsystem() {
 
     }
 
+    /**
+     * TODO: documentation
+     */
     fun setLeftSpeed(v: Double) {
         frontLeft.set(v)
     }
 
+    /**
+     * TODO: documentation
+     */
     fun setRightSpeed(v: Double) {
         frontRight.set(v)
     }
