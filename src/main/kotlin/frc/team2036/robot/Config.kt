@@ -30,6 +30,24 @@ val config = kton {
             "leftSpark" to 14
             "rightSpark" to 13
         }
+        "encoders" {
+            "frontLeft" {
+                "a" to 2
+                "b" to 3
+            }
+            "backLeft" {
+                "a" to 0
+                "b" to 1
+            }
+            "frontRight" {
+                "a" to 6
+                "b" to 7
+            }
+            "backRight" {
+                "a" to 4
+                "b" to 5
+            }
+        }
     }
     "speeds" {
         "wheels" {
