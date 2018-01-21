@@ -57,13 +57,11 @@ class Drivetrain internal constructor() : Subsystem() {
 
     /**
      * Sets the default command as a followJoystick command
-     * It also sets the back wheels to follow the front wheels
+     * Drivetrain doesn't have a default command because it has different default commands in autonomous and teleop
      * @see <a href="https://github.com/CrossTheRoadElec/Phoenix-Examples-Languages/tree/master/Java/SixTalonArcadeDrive">Example Code</a>
      * @see <a href="https://wpilib.screenstepslive.com/s/currentCS/m/java/l/479803-talon-srx-can">WPI Docs</a>
      */
-    override fun initDefaultCommand() {
-        this.defaultCommand = followJoystick
-    }
+    override fun initDefaultCommand() {}
 
     /**
      * Takes in an x movement and a y movement and actually moves the drivetrain by that amount
@@ -80,17 +78,10 @@ class Drivetrain internal constructor() : Subsystem() {
     }
 
     /**
-     * TODO: documentation
+     * Takes in left and right speeds and moves the robot as a tank drive
      */
-    fun setLeftSpeed(v: Double) {
-        frontLeft.set(v)
-    }
-
-    /**
-     * TODO: documentation
-     */
-    fun setRightSpeed(v: Double) {
-        frontRight.set(v)
+    fun tankDrive(left: Double, right: Double) {
+        this.drive.tankDrive(left, right)
     }
 
 }
