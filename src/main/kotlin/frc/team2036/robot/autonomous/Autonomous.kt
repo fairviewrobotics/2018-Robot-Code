@@ -1,5 +1,7 @@
 package frc.team2036.robot.autonomous
 
+import com.kauailabs.navx.frc.AHRS
+import edu.wpi.first.wpilibj.SPI
 import edu.wpi.first.wpilibj.command.Command
 import frc.team2036.robot.config
 import frc.team2036.robot.drivetrain.drivetrain
@@ -20,9 +22,9 @@ val autonomous = Autonomous()
  */
 class Autonomous internal constructor() : Command() {
 
-    lateinit private var modifier: TankModifier
     lateinit private var left: EncoderFollower
     lateinit private var right: EncoderFollower
+    lateinit private var ahrs: AHRS
 
 
     /**
@@ -38,39 +40,42 @@ class Autonomous internal constructor() : Command() {
      * Just takes in the joystick axes and passes them to the drivetrain to handle driving
      */
     override fun execute() {
+        logger.log("Executing auto","ok", LogType.TRACE)
         val encoder_position_left = drivetrain.frontLeftEncoder.get()
         val encoder_position_right = drivetrain.frontRightEncoder.get()
 
         val l = left.calculate(encoder_position_left);
         val r = right.calculate(encoder_position_right);
 
-        val gyro_heading =  0 //... your gyro code here ...    // Assuming the gyro is giving a value in degrees
+        val gyro_heading =  ahrs.angle //... your gyro code here ...    // Assuming the gyro is giving a value in degrees
+
         val desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
 
         val angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
+
+        logger.log("Angle difference",angleDifference)
         val turn = 0.8 * (-1.0/80.0) * angleDifference;
 
-        drivetrain.setLeftSpeed(l + turn);
-        drivetrain.setRightSpeed(r - turn);
-
+        drivetrain.tankDrive(l+turn,r-turn)
     }
 
     /**
      * What happens when the command starts
      */
     override fun start() {
-        logger.log("Program Flow", "FollowJoystick command starting.", LogType.TRACE)
-        val points = arrayOf(Waypoint(-4.0, -1.0, Pathfinder.d2r(-45.0)), // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+        logger.log("Program Flow", "Auto starting get out of the way", LogType.DEBUG)
+        val points = arrayOf(
+                //Waypoint(-4.0, -1.0, Pathfinder.d2r(0.0)), // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
                 Waypoint(-2.0, -2.0, 0.0), // Waypoint @ x=-2, y=-2, exit angle=0 radians
-                Waypoint(0.0, 0.0, 0.0)                           // Waypoint @ x=0, y=0,   exit angle=0 radians
+                Waypoint(1.0, 1.0, Pathfinder.d2r(0.0))                           // Waypoint @ x=0, y=0,   exit angle=0 radians
         )
 
-        val config = Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0)
+        val config = Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.0, 0.3, 30.0)
         val trajectory = Pathfinder.generate(points, config)
-        val modifier = TankModifier(trajectory).modify(0.5)
+        val modifier = TankModifier(trajectory).modify(0.56515)
 
-        val left = EncoderFollower(modifier.leftTrajectory)
-        val right = EncoderFollower(modifier.rightTrajectory)
+        left = EncoderFollower(modifier.leftTrajectory)
+        right = EncoderFollower(modifier.rightTrajectory)
 
         // Encoder Position is the current, cumulative position of your encoder. If you're using an SRX, this will be the
         // 'getEncPosition' function.
@@ -78,16 +83,18 @@ class Autonomous internal constructor() : Command() {
         // Wheel Diameter is the diameter of your wheels (or pulley for a track system) in meters
 
         val wheel_diameter = 0.1524 //6 inches in meters
-        val ticks_per_revolution = 1000
+        val ticks_per_revolution = 360
 
         val left_encoder_position = drivetrain.frontLeftEncoder.get()
         left.configureEncoder(left_encoder_position, ticks_per_revolution, wheel_diameter);
-        left.configurePIDVA(1.0, 0.0, 0.0, 1 / 1.7, 0.0);
+        left.configurePIDVA( 10.0,0.0, 0.0, 1 / 1.0, 0.0);
 
         val right_encoder_position = drivetrain.frontRightEncoder.get()
         right.configureEncoder(right_encoder_position, ticks_per_revolution, wheel_diameter);
-        right.configurePIDVA(1.0, 0.0, 0.0, 1 / 1.7, 0.0);
+        right.configurePIDVA(10.0, 0.0, 0.0, 1 / 1.0, 0.0);
 
+        ahrs = AHRS(SPI.Port.kMXP)
+        ahrs.zeroYaw()
     }
 
     /**
