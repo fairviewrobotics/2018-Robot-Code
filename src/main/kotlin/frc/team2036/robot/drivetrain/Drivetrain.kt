@@ -62,7 +62,6 @@ class Drivetrain internal constructor() : Subsystem() {
      * @see <a href="https://wpilib.screenstepslive.com/s/currentCS/m/java/l/479803-talon-srx-can">WPI Docs</a>
      */
     override fun initDefaultCommand() {
-        this.defaultCommand = followJoystick
     }
 
     /**
@@ -84,18 +83,5 @@ class Drivetrain internal constructor() : Subsystem() {
 
     }
 
-    /**
-     * TODO: documentation
-     */
-    fun setLeftSpeed(v: Double) {
-        frontLeft.set(v)
-    }
-
-    /**
-     * TODO: documentation
-     */
-    fun setRightSpeed(v: Double) {
-        frontRight.set(v)
-    }
 
 }

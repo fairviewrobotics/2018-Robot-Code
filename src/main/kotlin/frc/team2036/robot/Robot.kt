@@ -6,6 +6,7 @@ import frc.team2036.robot.autonomous.Autonomous
 import frc.team2036.robot.autonomous.autonomous
 import frc.team2036.robot.cube.cubeGrip
 import frc.team2036.robot.drivetrain.drivetrain
+import frc.team2036.robot.drivetrain.followJoystick
 import frc.team2036.robot.ramp.ramp
 import frc.team2036.robot.util.LogType
 import frc.team2036.robot.util.logger
@@ -55,6 +56,8 @@ class Robot : IterativeRobot() {
      */
     override fun teleopInit() {
         logger.log("Program Flow", "Robot teleoperated starting.", LogType.TRACE)
+        followJoystick.start()
+        Scheduler.getInstance().add(followJoystick)
     }
 
     /**
