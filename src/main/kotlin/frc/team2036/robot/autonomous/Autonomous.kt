@@ -22,9 +22,33 @@ val autonomous = Autonomous()
  */
 class Autonomous internal constructor() : Command() {
 
-    lateinit private var left: EncoderFollower
-    lateinit private var right: EncoderFollower
-    lateinit private var ahrs: AHRS
+    val points = arrayOf(
+            Waypoint(-4.0, -1.0, Pathfinder.d2r(0.0)),
+            Waypoint(-2.0, -2.0, Pathfinder.d2r(0.0)),
+            Waypoint(1.0, 1.0, Pathfinder.d2r(0.0))
+    )
+
+    val max_velocity = 1.0
+    val max_acceleration = 0.3
+    val max_jerk = 30.0
+
+    val config = Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, max_velocity, max_acceleration, max_jerk)
+    val trajectory = Pathfinder.generate(points, config)
+    val modifier = TankModifier(trajectory).modify(0.56515)
+
+    val left = EncoderFollower(modifier.leftTrajectory)
+    val right = EncoderFollower(modifier.rightTrajectory)
+
+    val wheel_diameter = 0.1524 //6 inches in meters
+    val ticks_per_revolution = 360 //Number of encoder ticks per full revolution
+
+    val ahrs = AHRS(SPI.Port.kMXP)
+
+    val k_p = 0.0
+    val k_i = 0.0
+    val k_d = 0.0
+    val k_v = 1 / max_velocity
+    val k_a = 0.0
 
 
     /**
@@ -64,36 +88,15 @@ class Autonomous internal constructor() : Command() {
      */
     override fun start() {
         logger.log("Program Flow", "Auto starting get out of the way", LogType.DEBUG)
-        val points = arrayOf(
-                //Waypoint(-4.0, -1.0, Pathfinder.d2r(0.0)), // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
-                Waypoint(-2.0, -2.0, 0.0), // Waypoint @ x=-2, y=-2, exit angle=0 radians
-                Waypoint(1.0, 1.0, Pathfinder.d2r(0.0))                           // Waypoint @ x=0, y=0,   exit angle=0 radians
-        )
-
-        val config = Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.0, 0.3, 30.0)
-        val trajectory = Pathfinder.generate(points, config)
-        val modifier = TankModifier(trajectory).modify(0.56515)
-
-        left = EncoderFollower(modifier.leftTrajectory)
-        right = EncoderFollower(modifier.rightTrajectory)
-
-        // Encoder Position is the current, cumulative position of your encoder. If you're using an SRX, this will be the
-        // 'getEncPosition' function.
-        // 1000 is the amount of encoder ticks per full revolution
-        // Wheel Diameter is the diameter of your wheels (or pulley for a track system) in meters
-
-        val wheel_diameter = 0.1524 //6 inches in meters
-        val ticks_per_revolution = 360
 
         val left_encoder_position = drivetrain.frontLeftEncoder.get()
         left.configureEncoder(left_encoder_position, ticks_per_revolution, wheel_diameter);
-        left.configurePIDVA( 10.0,0.0, 0.0, 1 / 1.0, 0.0);
+        left.configurePIDVA(k_p, k_i, k_d, k_v, k_a);
 
         val right_encoder_position = drivetrain.frontRightEncoder.get()
         right.configureEncoder(right_encoder_position, ticks_per_revolution, wheel_diameter);
-        right.configurePIDVA(10.0, 0.0, 0.0, 1 / 1.0, 0.0);
+        right.configurePIDVA(k_p, k_i, k_d, k_v, k_a);
 
-        ahrs = AHRS(SPI.Port.kMXP)
         ahrs.zeroYaw()
     }
 
@@ -111,14 +114,6 @@ class Autonomous internal constructor() : Command() {
     override fun isFinished(): Boolean {
         return false
     }
-
-    /**
-     * Takes in a joystick x or y value and processes the value so that they can be adjusted
-     * Would ideally work in polar and then return x and y components, but joystick has no polar methods
-     */
-    private fun processJoystickValue(component: Double): Double {
-        val minimumWheelRotation = config("speeds")("wheels")["minimumWheelRotation"] as Int
-        return (1 - minimumWheelRotation) * (pow(component, 3.0)) + minimumWheelRotation * if(component > 0) 1 else -1
-    }
+    
 
 }
