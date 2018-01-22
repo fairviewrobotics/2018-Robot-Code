@@ -2,8 +2,11 @@ package frc.team2036.robot
 
 import edu.wpi.first.wpilibj.IterativeRobot
 import edu.wpi.first.wpilibj.command.Scheduler
+import frc.team2036.robot.autonomous.Autonomous
+import frc.team2036.robot.autonomous.autonomous
 import frc.team2036.robot.cube.cubeGrip
 import frc.team2036.robot.drivetrain.drivetrain
+import frc.team2036.robot.drivetrain.followJoystick
 import frc.team2036.robot.ramp.ramp
 import frc.team2036.robot.util.LogType
 import frc.team2036.robot.util.logger
@@ -24,6 +27,7 @@ class Robot : IterativeRobot() {
     override fun robotInit() {
         logger.log("Program Flow", "Robot initializing with ${robotSubsystems.size} subsystems.", LogType.TRACE)
         initButtons() //TODO: move this to teleopInit?
+
     }
 
     /**
@@ -31,7 +35,10 @@ class Robot : IterativeRobot() {
      * Defines what commands to run over the autonomous period
      */
     override fun autonomousInit() {
+
         logger.log("Program Flow", "Robot autonomous starting.", LogType.TRACE)
+        autonomous.start()
+        Scheduler.getInstance().add(autonomous)
     }
 
     /**
@@ -40,6 +47,7 @@ class Robot : IterativeRobot() {
      */
     override fun autonomousPeriodic() {
         // Scheduler is what handles all the commands, we periodically run the Scheduler for the Commands to work
+        logger.log("Auto periodic", "ok", LogType.TRACE)
         Scheduler.getInstance().run()
     }
 
@@ -48,6 +56,8 @@ class Robot : IterativeRobot() {
      */
     override fun teleopInit() {
         logger.log("Program Flow", "Robot teleoperated starting.", LogType.TRACE)
+        followJoystick.start()
+        Scheduler.getInstance().add(followJoystick)
     }
 
     /**
