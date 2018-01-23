@@ -36,7 +36,7 @@ class Drivetrain internal constructor() : Subsystem() {
      */
     private val encodingType = config("ports")("encoders")["type"] as CounterBase.EncodingType
     val frontLeftEncoder = Encoder(config("ports")("encoders")("frontLeft")["a"] as Int,
-            config("ports")("encoders")("frontLeft")["b"] as Int, true, encodingType)
+            config("ports")("encoders")("frontLeft")["b"] as Int, false, encodingType)
     val backLeftEncoder = Encoder(config("ports")("encoders")("backLeft")["a"] as Int,
             config("ports")("encoders")("backLeft")["b"] as Int, false, encodingType)
     val frontRightEncoder = Encoder(config("ports")("encoders")("frontRight")["a"] as Int,
@@ -72,7 +72,7 @@ class Drivetrain internal constructor() : Subsystem() {
         logger.log("Drivetrain movement", "Drivetrain set to move by (${-x}, $y).", LogType.DEBUG)
 
         logger.log("Back Left Encoder", backLeftEncoder.get().toDouble())
-        logger.log("Front Left Encoder", frontLeftEncoder.get().toDouble())
+        logger.log("Front Left Encoder", -frontLeftEncoder.get().toDouble())
         logger.log("Back Right Encoder", backRightEncoder.get().toDouble())
         logger.log("Front Right Encoder", frontRightEncoder.get().toDouble())
 

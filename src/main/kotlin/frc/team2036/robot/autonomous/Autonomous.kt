@@ -20,9 +20,8 @@ val autonomous = Autonomous()
 class Autonomous internal constructor() : Command() {
 
     val points = arrayOf(
-            Waypoint(-4.0, -1.0, Pathfinder.d2r(0.0)),
-            Waypoint(-2.0, -2.0, Pathfinder.d2r(0.0)),
-            Waypoint(1.0, 1.0, Pathfinder.d2r(0.0))
+            Waypoint(-4.0, 0.0, Pathfinder.d2r(0.0)),
+            Waypoint(-2.0, 0.0, Pathfinder.d2r(0.0))
     )
 
     val max_velocity = 1.0
@@ -41,7 +40,7 @@ class Autonomous internal constructor() : Command() {
 
     val ahrs = AHRS(SPI.Port.kMXP)
 
-    val k_p = 0.0
+    val k_p = 1.0
     val k_i = 0.0
     val k_d = 0.0
     val k_v = 1 / max_velocity
@@ -61,20 +60,21 @@ class Autonomous internal constructor() : Command() {
      */
     override fun execute() {
         logger.log("Executing auto","ok", LogType.TRACE)
-        val encoder_position_left = drivetrain.frontLeftEncoder.get()
+        val encoder_position_left = -drivetrain.frontLeftEncoder.get()
         val encoder_position_right = drivetrain.frontRightEncoder.get()
 
         val l = left.calculate(encoder_position_left);
         val r = right.calculate(encoder_position_right);
 
-        val gyro_heading =  ahrs.angle //... your gyro code here ...    // Assuming the gyro is giving a value in degrees
+        //val gyro_heading =  ahrs.angle //... your gyro code here ...    // Assuming the gyro is giving a value in degrees
 
-        val desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
+        //val desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
 
-        val angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
+        //val angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
 
-        logger.log("Angle difference",angleDifference)
-        val turn = 0.8 * (-1.0/80.0) * angleDifference;
+        //logger.log("Angle difference",angleDifference)
+        //val turn = 0.8 * (-1.0/80.0) * angleDifference;
+        val turn = 0
 
         drivetrain.tankDrive(l+turn,r-turn)
     }
@@ -85,7 +85,7 @@ class Autonomous internal constructor() : Command() {
     override fun start() {
         logger.log("Program Flow", "Auto starting get out of the way", LogType.DEBUG)
 
-        val left_encoder_position = drivetrain.frontLeftEncoder.get()
+        val left_encoder_position = -drivetrain.frontLeftEncoder.get()
         left.configureEncoder(left_encoder_position, ticks_per_revolution, wheel_diameter);
         left.configurePIDVA(k_p, k_i, k_d, k_v, k_a);
 
