@@ -20,22 +20,22 @@ val autonomous = Autonomous()
 class Autonomous internal constructor() : Command() {
 
     val points = arrayOf(
-            Waypoint(-4.0, 0.0, Pathfinder.d2r(0.0)),
-            Waypoint(-2.0, 0.0, Pathfinder.d2r(0.0))
+            Waypoint(0.0, 0.0, Pathfinder.d2r(0.0)),
+            Waypoint(5.0, 0.0, Pathfinder.d2r(0.0))
     )
 
-    val max_velocity = 1.0
-    val max_acceleration = 0.3
-    val max_jerk = 30.0
+    val max_velocity = 1.0 // ft/s
+    val max_acceleration = 0.3 // ft/s^2
+    val max_jerk = 30.0 // ft/s^3
 
     val config = Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, max_velocity, max_acceleration, max_jerk)
     val trajectory = Pathfinder.generate(points, config)
-    val modifier = TankModifier(trajectory).modify(0.56515)
+    val modifier = TankModifier(trajectory).modify(1.854166667) //feet
 
     val left = EncoderFollower(modifier.leftTrajectory)
     val right = EncoderFollower(modifier.rightTrajectory)
 
-    val wheel_diameter = 0.1524 //6 inches in meters
+    val wheel_diameter = 0.5 //6 inches in feet
     val ticks_per_revolution = 360 //Number of encoder ticks per full revolution
 
     val ahrs = AHRS(SPI.Port.kMXP)
