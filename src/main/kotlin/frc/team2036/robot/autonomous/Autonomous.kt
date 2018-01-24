@@ -20,13 +20,14 @@ val autonomous = Autonomous()
 class Autonomous internal constructor() : Command() {
 
     val points = arrayOf(
-            Waypoint(0.0, 0.0, Pathfinder.d2r(0.0)),
-            Waypoint(5.0, 0.0, Pathfinder.d2r(0.0))
+            Waypoint(0.0, 15.0, Pathfinder.d2r(0.0)),
+            Waypoint(6.0, 15.0, Pathfinder.d2r(0.0)),
+            Waypoint(0.0, 15.0, Pathfinder.d2r(0.0))
     )
 
-    val max_velocity = 1.0 // ft/s
-    val max_acceleration = 0.3 // ft/s^2
-    val max_jerk = 30.0 // ft/s^3
+    val max_velocity = 1.7 // ft/s
+    val max_acceleration = 0.7 // ft/s^2
+    val max_jerk = 45.0 // ft/s^3
 
     val config = Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, max_velocity, max_acceleration, max_jerk)
     val trajectory = Pathfinder.generate(points, config)
@@ -40,7 +41,7 @@ class Autonomous internal constructor() : Command() {
 
     val ahrs = AHRS(SPI.Port.kMXP)
 
-    val k_p = 1.0
+    val k_p = 1.2
     val k_i = 0.0
     val k_d = 0.0
     val k_v = 1 / max_velocity
@@ -59,24 +60,26 @@ class Autonomous internal constructor() : Command() {
      * Moves the drive train based Encoder readings to go through all of the points
      */
     override fun execute() {
-        logger.log("Executing auto","ok", LogType.TRACE)
         val encoder_position_left = -drivetrain.frontLeftEncoder.get()
         val encoder_position_right = drivetrain.frontRightEncoder.get()
 
-        val l = left.calculate(encoder_position_left);
-        val r = right.calculate(encoder_position_right);
+        val l = left.calculate(encoder_position_left)
+        val r = right.calculate(encoder_position_right)
 
-        //val gyro_heading =  ahrs.angle //... your gyro code here ...    // Assuming the gyro is giving a value in degrees
+        logger.log("Left speed", l)
+        logger.log("Right speed", r)
 
-        //val desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
+        val gyro_heading =  ahrs.angle //... your gyro code here ...    // Assuming the gyro is giving a value in degrees
 
-        //val angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
+        val desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
 
-        //logger.log("Angle difference",angleDifference)
+        val angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
+
+        logger.log("Angle difference",angleDifference)
         //val turn = 0.8 * (-1.0/80.0) * angleDifference;
         val turn = 0
 
-        drivetrain.tankDrive(l+turn,r-turn)
+        drivetrain.tankDrive(-l-turn,r-turn)
     }
 
     /**
