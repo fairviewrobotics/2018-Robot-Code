@@ -22,7 +22,7 @@ class Autonomous internal constructor() : Command() {
     val points = arrayOf(
             Waypoint(0.0, 15.0, Pathfinder.d2r(0.0)),
             Waypoint(6.0, 15.0, Pathfinder.d2r(0.0)),
-            Waypoint(0.0, 15.0, Pathfinder.d2r(0.0))
+            Waypoint(9.0, 20.0, Pathfinder.d2r(90.0))
     )
 
     val max_velocity = 1.7 // ft/s
@@ -41,7 +41,7 @@ class Autonomous internal constructor() : Command() {
 
     val ahrs = AHRS(SPI.Port.kMXP)
 
-    val k_p = 1.2
+    val k_p = 0.8
     val k_i = 0.0
     val k_d = 0.0
     val k_v = 1 / max_velocity
@@ -76,10 +76,9 @@ class Autonomous internal constructor() : Command() {
         val angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
 
         logger.log("Angle difference",angleDifference)
-        //val turn = 0.8 * (-1.0/80.0) * angleDifference;
-        val turn = 0
+        val turn = -(0.8 * (-1.0/80.0) * angleDifference)
 
-        drivetrain.tankDrive(-l-turn,r-turn)
+        drivetrain.tankDrive(-(l+turn),r-turn)
     }
 
     /**

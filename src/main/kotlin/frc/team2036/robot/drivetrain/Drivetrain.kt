@@ -1,8 +1,10 @@
 package frc.team2036.robot.drivetrain
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX
+import com.kauailabs.navx.frc.AHRS
 import edu.wpi.first.wpilibj.CounterBase
 import edu.wpi.first.wpilibj.Encoder
+import edu.wpi.first.wpilibj.SPI
 import edu.wpi.first.wpilibj.command.Subsystem
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import frc.team2036.robot.autonomous.autonomous
@@ -44,6 +46,8 @@ class Drivetrain internal constructor() : Subsystem() {
     val backRightEncoder = Encoder(config("ports")("encoders")("backRight")["a"] as Int,
             config("ports")("encoders")("backRight")["b"] as Int, false, encodingType)
 
+    val ahrs = AHRS(SPI.Port.kMXP)
+
 
     /**
      * Constructor for a drivetrain
@@ -54,6 +58,7 @@ class Drivetrain internal constructor() : Subsystem() {
         backLeft.inverted = true
         backLeft.follow(frontLeft)
         backRight.follow(frontRight)
+        ahrs.zeroYaw()
     }
 
     /**
@@ -75,7 +80,7 @@ class Drivetrain internal constructor() : Subsystem() {
         logger.log("Front Left Encoder", -frontLeftEncoder.get().toDouble())
         logger.log("Back Right Encoder", backRightEncoder.get().toDouble())
         logger.log("Front Right Encoder", frontRightEncoder.get().toDouble())
-
+        logger.log("Yaw",ahrs.angle)
     }
 
     /**
