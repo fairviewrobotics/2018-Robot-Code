@@ -82,11 +82,6 @@ val config = kton {
         "ramps" {
             "toggleButton" to 15
         }
-        "cubeGrip" {
-            "inputButton" to 1
-            "outputButton" to 2
-            "idleButton" to 3
-        }
     }
     "verboseLogging" to true //Whether the logger should show all messages, or if it should just show what the drivers need to see
 }

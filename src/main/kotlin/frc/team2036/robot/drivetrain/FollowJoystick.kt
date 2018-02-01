@@ -3,8 +3,6 @@ package frc.team2036.robot.drivetrain
 import edu.wpi.first.wpilibj.GenericHID.Hand
 import edu.wpi.first.wpilibj.command.Command
 import frc.team2036.robot.config
-import frc.team2036.robot.cube.CubeGripState
-import frc.team2036.robot.cube.cubeGrip
 import frc.team2036.robot.elevator.elevator
 import frc.team2036.robot.joystick
 import frc.team2036.robot.util.LogType
@@ -36,12 +34,6 @@ class FollowJoystick internal constructor() : Command() {
     override fun execute() {
         drivetrain.drive(-processJoystickValue(joystick.x) * xMultiplier, processJoystickValue(joystick.y) * yMultiplier)
         elevator.drive(-processJoystickValue(joystick.getY(Hand.kRight)))
-
-        when {
-            joystick.getRawAxis(2) > 0.5 -> cubeGrip.state = CubeGripState.INPUT
-            joystick.getRawAxis(3) > 0.5 -> cubeGrip.state = CubeGripState.OUTPUT
-            else -> cubeGrip.state = CubeGripState.IDLE
-        }
     }
 
     /**

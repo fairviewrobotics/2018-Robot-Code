@@ -3,6 +3,7 @@ package frc.team2036.robot.cube
 import edu.wpi.first.wpilibj.Spark
 import edu.wpi.first.wpilibj.command.Subsystem
 import frc.team2036.robot.config
+import frc.team2036.robot.util.logger
 
 //Constructs a global CubeGrip object
 val cubeGrip = CubeGrip()
@@ -24,11 +25,20 @@ class CubeGrip internal constructor() : Subsystem() {
     private val rightMotor = Spark(config("ports")("cubeGrip")["rightSpark"] as Int) //The right input/output motor
     private val motorSpeed = config("speeds")["cubeGrip"] as Double
     var state: CubeGripState = CubeGripState.IDLE //What the CubeGrip subsystem is doing/set to do at the current moment
+        /**
+         * CubeGrip state setter sets the cubegrip state and logs it
+         */
+        set(value) {
+            logger.log("CubeGrip State", "Setting CubeGrip state to $value")
+            field = value
+        }
 
     /**
      * Initializes the default command of the CubeGrip subsystem; CubeGrip doesn't have a default command
      */
-    override fun initDefaultCommand() {}
+    override fun initDefaultCommand() {
+        this.defaultCommand = setCubeGripState
+    }
 
     /**
      * Sets both motor speeds
