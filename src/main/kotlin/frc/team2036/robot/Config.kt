@@ -18,10 +18,26 @@ val config = kton {
     "ports" {
         "joystick" to 5
         "wheels" {
-            "frontLeft" to 2
-            "frontRight" to 3
-            "backLeft" to 1
-            "backRight" to 0
+            /**
+             * Ports for real robot:
+             * Front
+             *  Left: 0
+             *  Right: 1
+             * Back
+             *  Left: 3
+             *  Right: 2
+             * Ports for test robot:
+             * Front
+             *  Left: 2
+             *  Right: 3
+             * Back
+             *  Left: 1
+             *  Right: 0
+             */
+            "frontLeft" to 0
+            "frontRight" to 1
+            "backLeft" to 3
+            "backRight" to 2
         }
         "ramps" {
             "leftServo" to 11
@@ -31,6 +47,7 @@ val config = kton {
             "leftSpark" to 14
             "rightSpark" to 13
         }
+        "elevator" to 15 // TODO: Set port for real robot
         "encoders" {
             "type" to CounterBase.EncodingType.k2X
             "backRight" {
@@ -59,6 +76,7 @@ val config = kton {
             "deadZoneRadius" to 0.1
         }
         "cubeGrip" to 0.5
+        "elevator" to 0.7
     }
     "buttons" {
         "ramps" {
