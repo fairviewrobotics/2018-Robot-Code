@@ -25,9 +25,9 @@ class Autonomous internal constructor() : Command() {
             Waypoint(9.0, 20.0, Pathfinder.d2r(90.0))
     )
 
-    val max_velocity = 1.7 // ft/s
-    val max_acceleration = 0.7 // ft/s^2
-    val max_jerk = 45.0 // ft/s^3
+    val max_velocity = 5.57743 // ft/s
+    val max_acceleration = 6.56168 // ft/s^2
+    val max_jerk = 196.85 // ft/s^3
 
     val config = Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, max_velocity, max_acceleration, max_jerk)
     val trajectory = Pathfinder.generate(points, config)
