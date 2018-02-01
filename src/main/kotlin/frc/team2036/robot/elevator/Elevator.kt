@@ -9,14 +9,20 @@ import frc.team2036.robot.util.logger
 
 val elevator = Elevator()
 
+/**
+ * The elevator subsystem is the subsystem that handles moving up and down cubes
+ * TODO: get this explained to us and write better doc for this
+ */
 class Elevator internal constructor() : Subsystem() {
 
     private val elevatorMotor = WPI_TalonSRX(config("ports")["elevator"] as Int)
-
     private val motorSpeed = config("speeds")["elevator"] as Double
 
+    /**
+     * When the elevator is constructed, sets feedback sensor
+     * See https://github.com/CrossTheRoadElec/Phoenix-Documentation#java---how-to-intellisensewhat-to-import
+     */
     init {
-        // See https://github.com/CrossTheRoadElec/Phoenix-Documentation#java---how-to-intellisensewhat-to-import
         elevatorMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0)
     }
 
@@ -27,14 +33,21 @@ class Elevator internal constructor() : Subsystem() {
         this.defaultCommand = changeElevator
     }
 
-
+    /**
+     * Sets the elevator's height to the given value
+     * TODO: rename?
+     */
     fun drive(y: Double) {
         logger.log("Elevator Y", y, LogType.DEBUG)
         elevatorMotor.set(y * motorSpeed)
     }
 
+    /**
+     * Continuously logs the elevator's position
+     */
     override fun periodic() {
         logger.log("Elevator position", elevatorMotor.getSelectedSensorPosition(0).toDouble())
     }
+
 }
 
