@@ -7,6 +7,7 @@ import frc.team2036.robot.autonomous.autonomous
 import frc.team2036.robot.cube.cubeGrip
 import frc.team2036.robot.drivetrain.drivetrain
 import frc.team2036.robot.drivetrain.followJoystick
+import frc.team2036.robot.elevator.elevator
 import frc.team2036.robot.ramp.ramp
 import frc.team2036.robot.util.LogType
 import frc.team2036.robot.util.logger
@@ -18,7 +19,7 @@ import frc.team2036.robot.util.logger
  */
 class Robot : IterativeRobot() {
 
-    private val robotSubsystems = arrayOf(cubeGrip, drivetrain, ramp)
+    private val robotSubsystems = arrayOf(cubeGrip, drivetrain, elevator, ramp)
 
     /**
      * The entry point for a robot, run at the very beginning

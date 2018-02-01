@@ -23,7 +23,9 @@ class Elevator internal constructor() : Subsystem() {
     /**
      * Initializes the default command of the CubeGrip subsystem; CubeGrip doesn't have a default command
      */
-    override fun initDefaultCommand() {}
+    override fun initDefaultCommand() {
+        this.defaultCommand = changeElevator
+    }
 
 
     fun drive(y: Double) {

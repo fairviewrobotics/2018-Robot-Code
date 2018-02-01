@@ -1,9 +1,7 @@
 package frc.team2036.robot.drivetrain
 
-import edu.wpi.first.wpilibj.GenericHID.Hand
 import edu.wpi.first.wpilibj.command.Command
 import frc.team2036.robot.config
-import frc.team2036.robot.elevator.elevator
 import frc.team2036.robot.joystick
 import frc.team2036.robot.util.LogType
 import frc.team2036.robot.util.logger
@@ -33,7 +31,6 @@ class FollowJoystick internal constructor() : Command() {
      */
     override fun execute() {
         drivetrain.drive(-processJoystickValue(joystick.x) * xMultiplier, processJoystickValue(joystick.y) * yMultiplier)
-        elevator.drive(-processJoystickValue(joystick.getY(Hand.kRight)))
     }
 
     /**
