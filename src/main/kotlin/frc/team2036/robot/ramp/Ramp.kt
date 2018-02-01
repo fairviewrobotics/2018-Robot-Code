@@ -16,7 +16,7 @@ val ramp = Ramp()
  * The ramp is a subsystem that will either extend or de-extend
  * Controlled by 2 servos, its only purpose is to be in either of those toggled states
  */
-class Ramp internal constructor() : Subsystem() {
+class Ramp internal constructor() : Subsystem() { // TODO VERY IMPORTANT: STOP MOTOR ON STALL
 
     private val leftServo = Servo(config("ports")("ramps")["leftServo"] as Int) //The servo that is on the left side of the robot
     private val rightServo = Servo(config("ports")("ramps")["rightServo"] as Int) //The servo that is on the right side of the robot
