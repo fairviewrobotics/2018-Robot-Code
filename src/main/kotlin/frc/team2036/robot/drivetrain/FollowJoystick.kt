@@ -72,8 +72,7 @@ class FollowJoystick internal constructor() : Command() {
      */
     private fun processJoystickValue(component: Double): Double {
         val minimumWheelRotation = config("speeds")("wheels")["minimumWheelRotation"] as Double
-        //return (1 - minimumWheelRotation) * (pow(component, 3.0)) + minimumWheelRotation * if(component > 0) 1 else -1
-        return component
+        return (1 - minimumWheelRotation) * (Math.pow(component, 3.0)) + minimumWheelRotation * if (component > 0) 1 else -1
     }
 
 }
