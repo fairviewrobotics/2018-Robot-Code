@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.Encoder
 import edu.wpi.first.wpilibj.SPI
 import edu.wpi.first.wpilibj.command.Subsystem
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
-import frc.team2036.robot.autonomous.autonomous
 import frc.team2036.robot.config
 import frc.team2036.robot.util.LogType
 import frc.team2036.robot.util.logger
@@ -80,7 +79,7 @@ class Drivetrain internal constructor() : Subsystem() {
         logger.log("Front Left Encoder", -frontLeftEncoder.get().toDouble())
         logger.log("Back Right Encoder", backRightEncoder.get().toDouble())
         logger.log("Front Right Encoder", frontRightEncoder.get().toDouble())
-        logger.log("Yaw",ahrs.angle)
+        logger.log("Yaw", ahrs.angle)
     }
 
     /**

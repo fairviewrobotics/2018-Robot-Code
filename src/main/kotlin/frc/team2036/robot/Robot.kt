@@ -2,7 +2,6 @@ package frc.team2036.robot
 
 import edu.wpi.first.wpilibj.IterativeRobot
 import edu.wpi.first.wpilibj.command.Scheduler
-import frc.team2036.robot.autonomous.Autonomous
 import frc.team2036.robot.autonomous.autonomous
 import frc.team2036.robot.cube.cubeGrip
 import frc.team2036.robot.drivetrain.drivetrain
@@ -36,7 +35,6 @@ class Robot : IterativeRobot() {
      * Defines what commands to run over the autonomous period
      */
     override fun autonomousInit() {
-
         logger.log("Program Flow", "Robot autonomous starting.", LogType.TRACE)
         autonomous.start()
         Scheduler.getInstance().add(autonomous)
