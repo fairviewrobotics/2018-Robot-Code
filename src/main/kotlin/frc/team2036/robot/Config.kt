@@ -47,7 +47,7 @@ val config = kton {
             "leftSpark" to 14
             "rightSpark" to 13
         }
-        "elevator" to 15 // TODO: Set port for real robot
+        "elevator" to 1
         "encoders" {
             "type" to CounterBase.EncodingType.k2X
             "backRight" {
