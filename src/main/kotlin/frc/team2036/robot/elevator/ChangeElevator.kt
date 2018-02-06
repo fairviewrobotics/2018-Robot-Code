@@ -9,6 +9,7 @@ val changeElevator = ChangeElevator()
 
 /**
  * A command that changes the elevator height based on joystick values
+ * Is run continually
  */
 class ChangeElevator internal constructor() : Command() {
 

@@ -9,6 +9,7 @@ import frc.team2036.robot.config
 import frc.team2036.robot.util.LogType
 import frc.team2036.robot.util.logger
 
+//Constructs a global elevator object
 val elevator = Elevator()
 
 /**
@@ -32,17 +33,17 @@ class Elevator internal constructor() : Subsystem() {
         this.elevatorMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0)
 
         /* set the peak and nominal outputs */
-        this.elevatorMotor.configNominalOutputForward(0.0, 10);
-        this.elevatorMotor.configNominalOutputReverse(0.0, 10);
-        this.elevatorMotor.configPeakOutputForward(0.2, 10);
-        this.elevatorMotor.configPeakOutputReverse(-1.0, 10);
+        this.elevatorMotor.configNominalOutputForward(0.0, 10)
+        this.elevatorMotor.configNominalOutputReverse(0.0, 10)
+        this.elevatorMotor.configPeakOutputForward(0.2, 10)
+        this.elevatorMotor.configPeakOutputReverse(-1.0, 10)
 
         /* set closed loop gains in slot0 - see documentation */
-        this.elevatorMotor.selectProfileSlot(0, 0);
-        this.elevatorMotor.config_kF(0, 0.2, 0);
-        this.elevatorMotor.config_kP(0, 2.2, 0);
-        this.elevatorMotor.config_kI(0, 0.0, 0);
-        this.elevatorMotor.config_kD(0, 0.0, 0);
+        this.elevatorMotor.selectProfileSlot(0, 0)
+        this.elevatorMotor.config_kF(0, 0.2, 0)
+        this.elevatorMotor.config_kP(0, 2.2, 0)
+        this.elevatorMotor.config_kI(0, 0.0, 0)
+        this.elevatorMotor.config_kD(0, 0.0, 0)
         /* set acceleration and vcruise velocity - see documentation */
         this.elevatorMotor.configMotionCruiseVelocity(100, 0)
         this.elevatorMotor.configMotionAcceleration(50, 0)
