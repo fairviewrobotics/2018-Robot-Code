@@ -23,7 +23,8 @@ class ChangeElevator internal constructor() : Command() {
      * Every time this command executes, it moves the elevator based on the right joystick value
      */
     override fun execute() {
-        elevator.drive(-processJoystickValue(joystick.getY(GenericHID.Hand.kRight)))
+//        elevator.drive(-processJoystickValue(joystick.getY(GenericHID.Hand.kRight)))
+        elevator.drive(joystick.getY(GenericHID.Hand.kRight))
     }
 
     /**

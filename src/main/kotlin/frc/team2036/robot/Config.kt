@@ -35,7 +35,7 @@ val config = kton {
              *  Right: 0
              */
             "frontLeft" to 0
-            "frontRight" to 1
+            "frontRight" to 4
             "backLeft" to 3
             "backRight" to 2
         }

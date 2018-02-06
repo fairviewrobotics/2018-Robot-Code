@@ -2,6 +2,7 @@ package frc.team2036.robot
 
 import edu.wpi.first.wpilibj.IterativeRobot
 import edu.wpi.first.wpilibj.command.Scheduler
+import frc.team2036.robot.autonomous.MoveElevator
 import frc.team2036.robot.autonomous.autonomous
 import frc.team2036.robot.cube.cubeGrip
 import frc.team2036.robot.drivetrain.drivetrain
@@ -19,6 +20,7 @@ import frc.team2036.robot.util.logger
 class Robot : IterativeRobot() {
 
     private val robotSubsystems = arrayOf(cubeGrip, drivetrain, elevator, ramp)
+    val autoCommand = MoveElevator(-50.0)
 
     /**
      * The entry point for a robot, run at the very beginning
@@ -36,7 +38,8 @@ class Robot : IterativeRobot() {
      */
     override fun autonomousInit() {
         logger.log("Program Flow", "Robot autonomous starting.", LogType.TRACE)
-        autonomous.start()
+
+        autoCommand.start()
         Scheduler.getInstance().add(autonomous)
     }
 
@@ -55,6 +58,7 @@ class Robot : IterativeRobot() {
      */
     override fun teleopInit() {
         logger.log("Program Flow", "Robot teleoperated starting.", LogType.TRACE)
+        autoCommand.cancel()
         followJoystick.start()
         Scheduler.getInstance().add(followJoystick)
     }
