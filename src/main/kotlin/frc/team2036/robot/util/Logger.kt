@@ -35,7 +35,7 @@ class Logger internal constructor() {
             "Driver Error",
             "CubeGrip State")
     //All the messages that have been sent through the logger; only would be necessary for debugging purposes
-    private val allMessages = mutableListOf<Message>()
+    //private val allMessages = mutableListOf<Message>()
 
     /**
      * Prints the given message conditionally: if the message is tagged with a necessary tag or verboseLogging is enabled
@@ -44,6 +44,7 @@ class Logger internal constructor() {
         if (config["verboseLogging"] as Boolean || necessaryLogs.contains(message.tag)) {
             println(message)
         }
+        //allMessages.add(logMessage)
     }
 
     /**
@@ -51,7 +52,6 @@ class Logger internal constructor() {
      */
     fun log(tag: String, message: String, type: LogType = LogType.INFO) {
         val logMessage = Message(tag, message, type)
-        allMessages.add(logMessage)
         SmartDashboard.putString("{$type}: $tag", message)
         conditionalPrint(logMessage)
     }
@@ -62,7 +62,6 @@ class Logger internal constructor() {
      */
     fun log(tag: String, data: Double, type: LogType = LogType.INFO) {
         val logMessage = Message(tag, data.toString(), type)
-        allMessages.add(logMessage)
         SmartDashboard.putNumber("{$type}: $tag", data)
         conditionalPrint(logMessage)
     }
