@@ -15,6 +15,10 @@ import org.jire.kton.kton
  *  2. To access a value (something that has a set value) we must use [] and a string of the name
  */
 val config = kton {
+    "sizes" {
+        "diameter" to 6 // in inches TODO
+        "ticksPerRev" to 360 // TODO
+    }
     "ports" {
         "joystick" to 5
         "wheels" {
