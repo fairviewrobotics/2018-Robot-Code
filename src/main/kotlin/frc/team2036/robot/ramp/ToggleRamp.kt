@@ -1,6 +1,8 @@
 package frc.team2036.robot.ramp
 
 import edu.wpi.first.wpilibj.command.InstantCommand
+import frc.team2036.robot.joystick
+import frc.team2036.robot.joystick2
 import frc.team2036.robot.util.logger
 
 //A global ToggleRamp object
@@ -24,7 +26,8 @@ class ToggleRamp internal constructor() : InstantCommand() {
      */
     override fun execute() {
         logger.log("Ramp State", "Toggling Ramp State.")
-        ramp.toggleRampState()
+        ramp.releaseRamp(RampSide.LEFT, joystick.y)
+        ramp.releaseRamp(RampSide.RIGHT, joystick2.y)
     }
 
 }

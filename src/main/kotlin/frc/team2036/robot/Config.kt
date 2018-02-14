@@ -40,8 +40,8 @@ val config = kton {
             "backRight" to 2
         }
         "ramps" {
-            "leftServo" to 11
-            "rightServo" to 12
+            "leftSpark" to 11
+            "rightSpark" to 12
         }
         "cubeGrip" {
             "leftSpark" to 14

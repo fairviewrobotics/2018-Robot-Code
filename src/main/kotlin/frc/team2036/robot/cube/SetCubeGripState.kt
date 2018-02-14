@@ -1,5 +1,6 @@
 package frc.team2036.robot.cube
 
+import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.command.Command
 import frc.team2036.robot.joystick
 
@@ -23,8 +24,8 @@ class SetCubeGripState internal constructor() : Command() {
      */
     override fun execute() {
         cubeGrip.state = when {
-            joystick.getRawAxis(2) > 0.5 -> CubeGripState.INPUT
-            joystick.getRawAxis(3) > 0.5 -> CubeGripState.OUTPUT
+            joystick.getTriggerAxis(GenericHID.Hand.kLeft) > .75 -> CubeGripState.INPUT
+            joystick.getTriggerAxis(GenericHID.Hand.kRight) > .75 -> CubeGripState.OUTPUT
             else -> CubeGripState.IDLE
         }
     }

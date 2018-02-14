@@ -3,7 +3,7 @@ package frc.team2036.robot.elevator
 import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.command.Command
 import frc.team2036.robot.config
-import frc.team2036.robot.joystick
+import frc.team2036.robot.joystick2
 
 val changeElevator = ChangeElevator()
 
@@ -25,7 +25,8 @@ class ChangeElevator internal constructor() : Command() {
      */
     override fun execute() {
 //        elevator.drive(-processJoystickValue(joystick.getY(GenericHID.Hand.kRight)))
-        elevator.drive(joystick.getY(GenericHID.Hand.kRight))
+        elevator.drive(joystick2.getY(GenericHID.Hand.kRight))
+        // TODO: add elevator top and bottom code
     }
 
     /**
