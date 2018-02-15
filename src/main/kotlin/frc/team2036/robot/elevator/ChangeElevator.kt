@@ -21,11 +21,26 @@ class ChangeElevator internal constructor() : Command() {
     }
 
     /**
+     * Sets rumble for controller 2 for both hands
+     */
+    private fun rumble(rumble: Double) {
+        joystick2.setRumble(GenericHID.RumbleType.kLeftRumble, rumble)
+        joystick2.setRumble(GenericHID.RumbleType.kRightRumble, rumble)
+    }
+
+    /**
      * Every time this command executes, it moves the elevator based on the right joystick value
      */
     override fun execute() {
 //        elevator.drive(-processJoystickValue(joystick.getY(GenericHID.Hand.kRight)))
         elevator.drive(joystick2.getY(GenericHID.Hand.kRight))
+        val sensor = elevator.elevatorMotor.sensorCollection
+
+        if (sensor.isFwdLimitSwitchClosed || sensor.isRevLimitSwitchClosed) {
+            rumble(1.0)
+        } else {
+            rumble(0.0)
+        }
         // TODO: add elevator top and bottom code
     }
 
