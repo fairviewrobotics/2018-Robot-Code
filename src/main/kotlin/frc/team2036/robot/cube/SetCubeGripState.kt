@@ -2,7 +2,8 @@ package frc.team2036.robot.cube
 
 import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.command.Command
-import frc.team2036.robot.joystick
+import frc.team2036.robot.koolKirljoystick
+import frc.team2036.robot.koolKoyJoystick
 
 val setCubeGripState = SetCubeGripState()
 
@@ -23,11 +24,10 @@ class SetCubeGripState internal constructor() : Command() {
      * Sets the CubeGrip state to whatever this command's state field is
      */
     override fun execute() {
-        cubeGrip.state = when {
-            joystick.getTriggerAxis(GenericHID.Hand.kLeft) > .75 -> CubeGripState.INPUT
-            joystick.getTriggerAxis(GenericHID.Hand.kRight) > .75 -> CubeGripState.OUTPUT
-            else -> CubeGripState.IDLE
-        }
+        val joystickOneInput = koolKoyJoystick.getTriggerAxis(GenericHID.Hand.kRight) - koolKoyJoystick.getTriggerAxis(GenericHID.Hand.kLeft)
+        val joystickTwoInput = koolKirljoystick.getTriggerAxis(GenericHID.Hand.kRight) - koolKirljoystick.getTriggerAxis(GenericHID.Hand.kLeft)
+
+        cubeGrip.setSpeed((joystickOneInput + joystickTwoInput) / 2)
     }
 
     /**
