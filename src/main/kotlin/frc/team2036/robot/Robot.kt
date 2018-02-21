@@ -2,11 +2,8 @@ package frc.team2036.robot
 
 import edu.wpi.first.wpilibj.IterativeRobot
 import edu.wpi.first.wpilibj.command.Scheduler
-import frc.team2036.robot.autonomous.autonomous
 import frc.team2036.robot.cube.cubeGrip
 import frc.team2036.robot.drivetrain.drivetrain
-import frc.team2036.robot.drivetrain.followJoystick
-import frc.team2036.robot.elevator.SetElevator
 import frc.team2036.robot.elevator.elevator
 import frc.team2036.robot.ramp.ramp
 import frc.team2036.robot.util.LogType
@@ -21,8 +18,6 @@ class Robot : IterativeRobot() {
 
     //All commands the robot can see; this isn't used and this field is black magic that makes the code work
     private val robotSubsystems = arrayOf(cubeGrip, drivetrain, elevator, ramp)
-    //What command the robot will run during autonomous
-    private val autoCommand = SetElevator(-2000.0)
 
     /**
      * The entry point for a robot, run at the very beginning
@@ -31,7 +26,6 @@ class Robot : IterativeRobot() {
     override fun robotInit() {
         logger.log("Program Flow", "Robot initializing with ${robotSubsystems.size} subsystems.", LogType.TRACE)
         initButtons() //TODO: move this to teleopInit?
-
     }
 
     /**
@@ -40,8 +34,6 @@ class Robot : IterativeRobot() {
      */
     override fun autonomousInit() {
         logger.log("Program Flow", "Robot autonomous starting.", LogType.TRACE)
-        this.autoCommand.start()
-        Scheduler.getInstance().add(autonomous) //TODO: shouldn't we be adding autoCommand to the scheduler?
     }
 
     /**
@@ -59,9 +51,6 @@ class Robot : IterativeRobot() {
      */
     override fun teleopInit() {
         logger.log("Program Flow", "Robot teleoperated starting.", LogType.TRACE)
-        autoCommand.cancel()
-        followJoystick.start()
-        Scheduler.getInstance().add(followJoystick)
     }
 
     /**
@@ -70,8 +59,8 @@ class Robot : IterativeRobot() {
     override fun teleopPeriodic() {
         // Scheduler is what handles all the commands, we periodically run the Scheduler for the Commands to work
         Scheduler.getInstance().run()
-        logger.log("Joystick X", joystick.x)
-        logger.log("Joystick Y", joystick.y)
+        logger.log("Joystick X", koolKoyJoystick.x)
+        logger.log("Joystick Y", koolKoyJoystick.y)
     }
 
 }
