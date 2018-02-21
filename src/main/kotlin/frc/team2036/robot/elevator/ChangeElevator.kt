@@ -3,12 +3,13 @@ package frc.team2036.robot.elevator
 import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.command.Command
 import frc.team2036.robot.config
-import frc.team2036.robot.joystick2
+import frc.team2036.robot.koolKirljoystick
+import frc.team2036.robot.rumble
 
 val changeElevator = ChangeElevator()
 
 /**
- * A command that changes the elevator height based on joystick values
+ * A command that changes the elevator height based on koolKoyJoystick values
  * Is run continually
  */
 class ChangeElevator internal constructor() : Command() {
@@ -21,27 +22,17 @@ class ChangeElevator internal constructor() : Command() {
     }
 
     /**
-     * Sets rumble for controller 2 for both hands
-     */
-    private fun rumble(rumble: Double) {
-        joystick2.setRumble(GenericHID.RumbleType.kLeftRumble, rumble)
-        joystick2.setRumble(GenericHID.RumbleType.kRightRumble, rumble)
-    }
-
-    /**
-     * Every time this command executes, it moves the elevator based on the right joystick value
+     * Every time this command executes, it moves the elevator based on the right koolKoyJoystick value
      */
     override fun execute() {
-//        elevator.drive(-processJoystickValue(joystick.getY(GenericHID.Hand.kRight)))
-        elevator.drive(joystick2.getY(GenericHID.Hand.kRight))
-        val sensor = elevator.elevatorMotor.sensorCollection
+        val driveValue = -koolKirljoystick.getY(GenericHID.Hand.kRight)
 
-        if (sensor.isFwdLimitSwitchClosed || sensor.isRevLimitSwitchClosed) {
+        if ((driveValue > 0 && !elevator.topLimit.get()) || (driveValue < 0 && !elevator.bottomLimit.get())) {
             rumble(1.0)
         } else {
+            elevator.drive(driveValue)
             rumble(0.0)
         }
-        // TODO: add elevator top and bottom code
     }
 
     /**
@@ -52,8 +43,8 @@ class ChangeElevator internal constructor() : Command() {
     }
 
     /**
-     * Takes in a joystick x or y value and processes the value so that they can be adjusted
-     * Would ideally work in polar and then return x and y components, but joystick has no polar methods
+     * Takes in a koolKoyJoystick x or y value and processes the value so that they can be adjusted
+     * Would ideally work in polar and then return x and y components, but koolKoyJoystick has no polar methods
      * TODO: should this code be common to followjoystick and this? if so, this method should be moved to operatorInput
      */
     private fun processJoystickValue(component: Double): Double {
