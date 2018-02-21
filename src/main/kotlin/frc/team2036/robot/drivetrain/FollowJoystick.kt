@@ -1,18 +1,19 @@
 package frc.team2036.robot.drivetrain
 
+import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.command.Command
 import frc.team2036.robot.config
 import frc.team2036.robot.cube.CubeGripState
 import frc.team2036.robot.cube.cubeGrip
-import frc.team2036.robot.joystick
+import frc.team2036.robot.koolKoyJoystick
 import frc.team2036.robot.util.LogType
 import frc.team2036.robot.util.logger
 
 val followJoystick = FollowJoystick()
 
 /**
- * A Command that connects the joystick to the drivetrain
- * Just sends all joystick inputs to the robot
+ * A Command that connects the koolKoyJoystick to the drivetrain
+ * Just sends all koolKoyJoystick inputs to the robot
  */
 class FollowJoystick internal constructor() : Command() {
 
@@ -28,11 +29,11 @@ class FollowJoystick internal constructor() : Command() {
     }
 
     /**
-     * Moves the drive train based on joystick's x and y coordinates
-     * Just takes in the joystick axes and passes them to the drivetrain to handle driving
+     * Moves the drive train based on koolKoyJoystick's x and y coordinates
+     * Just takes in the koolKoyJoystick axes and passes them to the drivetrain to handle driving
      */
     override fun execute() {
-        drivetrain.drive(-processJoystickValue(joystick.x) * xMultiplier, processJoystickValue(joystick.y) * yMultiplier)
+        drivetrain.drive(-processJoystickValue(koolKoyJoystick.getX(GenericHID.Hand.kLeft)) * xMultiplier, processJoystickValue(koolKoyJoystick.getY(GenericHID.Hand.kLeft)) * yMultiplier)
     }
 
     /**
@@ -59,8 +60,8 @@ class FollowJoystick internal constructor() : Command() {
     }
 
     /**
-     * Takes in a joystick x or y value and processes the value so that they can be adjusted
-     * Would ideally work in polar and then return x and y components, but joystick has no polar methods
+     * Takes in a koolKoyJoystick x or y value and processes the value so that they can be adjusted
+     * Would ideally work in polar and then return x and y components, but koolKoyJoystick has no polar methods
      */
     private fun processJoystickValue(component: Double): Double {
         val minimumWheelRotation = config("speeds")("wheels")["minimumWheelRotation"] as Double
