@@ -29,7 +29,9 @@ class Ramp internal constructor() : Subsystem() { // TODO VERY IMPORTANT: STOP M
      * A required method for any subsystem
      * Ramp doesn't have default command
      */
-    override fun initDefaultCommand() {}
+    override fun initDefaultCommand() {
+        this.defaultCommand = toggleRamp
+    }
 
     /**
      * Switches the ramp state (eg. if the ramps are up, puts them down; if they are down, picks them up)
