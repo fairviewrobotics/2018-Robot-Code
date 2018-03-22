@@ -109,6 +109,6 @@ class GoToDistance internal constructor(distance: Double) : PIDOutput, Command()
     }
 
     private fun getAverageEncoderPosition(): Double {
-        return (leftEncoder.get() as Double + rightEncoder.get() as Double) / 2
+        return (drivetrain.leftEncoder.get() as Double + drivetrain.rightEncoder.get() as Double) / 2
     }
 }
