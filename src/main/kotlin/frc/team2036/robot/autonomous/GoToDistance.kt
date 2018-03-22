@@ -1,8 +1,6 @@
 package frc.team2036.robot.autonomous
 
 import com.kauailabs.navx.frc.AHRS
-import edu.wpi.first.wpilibj.CounterBase.EncodingType
-import edu.wpi.first.wpilibj.Encoder
 import edu.wpi.first.wpilibj.PIDController
 import edu.wpi.first.wpilibj.PIDOutput
 import edu.wpi.first.wpilibj.SPI
@@ -34,12 +32,9 @@ class GoToDistance internal constructor(distance: Double) : PIDOutput, Command()
 
     var distance = distance
 
-    var ahrs = AHRS(SPI.Port.kMXP);
+    var ahrs = AHRS(SPI.Port.kMXP)
 
     var turnController = PIDController(kP, kI, kD, kF, ahrs, this)
-
-    var leftEncoder = Encoder(config("ports")("encoders")("frontLeft")["a"] as Int, config("ports")("encoders")("frontLeft")["b"] as Int, false, EncodingType.k4X)
-    var rightEncoder = Encoder(config("ports")("encoders")("frontRight")["a"] as Int, config("ports")("encoders")("frontRight")["b"] as Int, false, EncodingType.k4X)
 
 
     val diameter = config("sizes")["diameter"] as Double //wheel diameter in inches
@@ -60,10 +55,10 @@ class GoToDistance internal constructor(distance: Double) : PIDOutput, Command()
     }
 
     override fun initialize() {
-        ahrs.zeroYaw();
+        ahrs.zeroYaw()
 
-        leftEncoder.reset();
-        rightEncoder.reset();
+        drivetrain.leftEncoder.reset()
+        drivetrain.rightEncoder.reset()
 
     }
 
@@ -71,7 +66,8 @@ class GoToDistance internal constructor(distance: Double) : PIDOutput, Command()
      * While the command is running, the robot moves forward
      */
     override fun execute() {
-        if (!turnController.isEnabled()) {
+
+        if (!turnController.isEnabled) {
             turnController.setpoint = ahrs.yaw.toDouble()
             rotateToAngleRate = 0.0 // This value will be updated in the pidWrite() method.
             turnController.enable()
@@ -103,13 +99,13 @@ class GoToDistance internal constructor(distance: Double) : PIDOutput, Command()
      * When the command is over, it sets the cubegrip to be outputting
      */
     override fun end() {
-        if (turnController.isEnabled()) {
-            turnController.disable();
+        if (turnController.isEnabled) {
+            turnController.disable()
         }
     }
 
     override fun pidWrite(output: Double) {
-        rotateToAngleRate = output;
+        rotateToAngleRate = output
     }
 
     private fun getAverageEncoderPosition(): Double {

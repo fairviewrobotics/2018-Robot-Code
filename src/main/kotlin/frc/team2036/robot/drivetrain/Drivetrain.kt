@@ -34,14 +34,8 @@ class Drivetrain internal constructor() : Subsystem() {
      * Makes all the encoders from constants defined in config
      */
     private val encodingType = config("ports")("encoders")["type"] as CounterBase.EncodingType
-    val frontLeftEncoder = Encoder(config("ports")("encoders")("frontLeft")["a"] as Int,
-            config("ports")("encoders")("frontLeft")["b"] as Int, false, encodingType)
-    val backLeftEncoder = Encoder(config("ports")("encoders")("backLeft")["a"] as Int,
-            config("ports")("encoders")("backLeft")["b"] as Int, false, encodingType)
-    val frontRightEncoder = Encoder(config("ports")("encoders")("frontRight")["a"] as Int,
-            config("ports")("encoders")("frontRight")["b"] as Int, false, encodingType)
-    val backRightEncoder = Encoder(config("ports")("encoders")("backRight")["a"] as Int,
-            config("ports")("encoders")("backRight")["b"] as Int, false, encodingType)
+    var leftEncoder = Encoder(config("ports")("encoders")("frontLeft")["a"] as Int, config("ports")("encoders")("frontLeft")["b"] as Int, true, CounterBase.EncodingType.k4X)
+    var rightEncoder = Encoder(config("ports")("encoders")("frontRight")["a"] as Int, config("ports")("encoders")("frontRight")["b"] as Int, false, CounterBase.EncodingType.k4X)
 
     val ahrs = AHRS(SPI.Port.kMXP)
 
@@ -74,10 +68,8 @@ class Drivetrain internal constructor() : Subsystem() {
     }
 
     override fun periodic() {
-        logger.log("Back Left Encoder", backLeftEncoder.get().toDouble())
-        logger.log("Front Left Encoder", -frontLeftEncoder.get().toDouble())
-        logger.log("Back Right Encoder", backRightEncoder.get().toDouble())
-        logger.log("Front Right Encoder", frontRightEncoder.get().toDouble())
+        logger.log("Front Left Encoder", leftEncoder.get().toDouble())
+        logger.log("Front Right Encoder", rightEncoder.get().toDouble())
         logger.log("Yaw", ahrs.angle)
     }
 
