@@ -69,8 +69,8 @@ val config = kton {
                 "b" to 7
             }
             "frontLeft" {
-                "a" to 4
-                "b" to 5
+                "a" to 8
+                "b" to 9
             }
         }
     }

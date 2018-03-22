@@ -21,8 +21,8 @@ class Elevator internal constructor() : Subsystem() {
     private val motorSpeed = config("speeds")["elevator"] as Double
 
     // TODO CONFIG
-    val topLimit = DigitalInput(11)
-    val bottomLimit = DigitalInput(12)
+    val topLimit = DigitalInput(0)
+    val bottomLimit = DigitalInput(1)
 
     /**
      * When the elevator is constructed, sets feedback sensor
