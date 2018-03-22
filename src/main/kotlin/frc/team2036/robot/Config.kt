@@ -39,20 +39,21 @@ val config = kton {
              *  Left: 1
              *  Right: 0
              */
-            "frontLeft" to 0
-            "frontRight" to 4
-            "backLeft" to 3
-            "backRight" to 2
+            "frontLeft" to 3
+            "frontRight" to 0
         }
         "ramps" {
-            "leftSpark" to 11
-            "rightSpark" to 12
+            "leftSpark" to 0
+            "rightSpark" to 1
         }
+        "rampRelease" to 4
         "cubeGrip" {
-            "leftSpark" to 14
-            "rightSpark" to 13
+            "left" to 2
+            "right" to 3
         }
-        "elevator" to 1
+        "elevator" to 2
+        // Top 1
+        // Bottom 0
         "encoders" {
             "type" to CounterBase.EncodingType.k2X
             "backRight" {

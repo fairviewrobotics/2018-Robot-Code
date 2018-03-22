@@ -1,6 +1,6 @@
 package frc.team2036.robot.cube
 
-import edu.wpi.first.wpilibj.Spark
+import edu.wpi.first.wpilibj.Talon
 import edu.wpi.first.wpilibj.command.Subsystem
 import frc.team2036.robot.config
 import frc.team2036.robot.util.logger
@@ -21,8 +21,8 @@ enum class CubeGripState {
  */
 class CubeGrip internal constructor() : Subsystem() {
 
-    private val leftMotor = Spark(config("ports")("cubeGrip")["leftSpark"] as Int) //The left input/output motor
-    private val rightMotor = Spark(config("ports")("cubeGrip")["rightSpark"] as Int) //The right input/output motor
+    private val leftMotor = Talon(config("ports")("cubeGrip")["left"] as Int) //The left input/output motor
+    private val rightMotor = Talon(config("ports")("cubeGrip")["right"] as Int) //The right input/output motor
     var state: CubeGripState = CubeGripState.IDLE //What the CubeGrip subsystem is doing/set to do at the current moment
         /**
          * CubeGrip state setter sets the cubegrip state and logs it

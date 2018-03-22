@@ -20,8 +20,9 @@ class Elevator internal constructor() : Subsystem() {
     val elevatorMotor = WPI_TalonSRX(config("ports")["elevator"] as Int)
     private val motorSpeed = config("speeds")["elevator"] as Double
 
-    val topLimit = DigitalInput(1)
-    val bottomLimit = DigitalInput(0)
+    // TODO CONFIG
+    val topLimit = DigitalInput(11)
+    val bottomLimit = DigitalInput(12)
 
     /**
      * When the elevator is constructed, sets feedback sensor
