@@ -1,7 +1,11 @@
 package frc.team2036.robot
 
+import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.IterativeRobot
 import edu.wpi.first.wpilibj.command.Scheduler
+import frc.team2036.robot.autonomous.CenterAutonomous
+import frc.team2036.robot.autonomous.DIRECTION
+import frc.team2036.robot.autonomous.GoToDistance
 import frc.team2036.robot.cube.cubeGrip
 import frc.team2036.robot.drivetrain.drivetrain
 import frc.team2036.robot.elevator.elevator
@@ -16,6 +20,10 @@ import frc.team2036.robot.util.logger
  */
 class Robot : IterativeRobot() {
 
+    private var gameData: String = ""
+
+    private val center = true
+
     //All commands the robot can see; this isn't used and this field is black magic that makes the code work
     private val robotSubsystems = arrayOf(cubeGrip, drivetrain, elevator, ramp)
 
@@ -24,6 +32,7 @@ class Robot : IterativeRobot() {
      * Entry code doesn't go in a constructor, goes here
      */
     override fun robotInit() {
+        gameData = DriverStation.getInstance().getGameSpecificMessage()
         logger.log("Program Flow", "Robot initializing with ${robotSubsystems.size} subsystems.", LogType.TRACE)
         initButtons() //TODO: move this to teleopInit?
     }
@@ -34,6 +43,20 @@ class Robot : IterativeRobot() {
      */
     override fun autonomousInit() {
         logger.log("Program Flow", "Robot autonomous starting.", LogType.TRACE)
+
+        val scheduler = Scheduler.getInstance()
+
+        if (center) {
+            val direction = when (gameData[0].toUpperCase()) {
+                'L' -> DIRECTION.LEFT
+                'R' -> DIRECTION.RIGHT
+                else -> DIRECTION.LEFT
+            }
+
+            scheduler.add(CenterAutonomous(direction))
+        } else {
+            scheduler.add(GoToDistance(15.0 * 12.0)) // TODO
+        }
     }
 
     /**

@@ -8,13 +8,11 @@ import edu.wpi.first.wpilibj.command.Command
 import frc.team2036.robot.drivetrain.drivetrain
 
 
-//A global autonomous object
-val turnToAngle = TurnToAngle()
 
 /**
  * A command that defines what happens in the autonomous period
  */
-class TurnToAngle internal constructor() : PIDOutput, Command() {
+class TurnToAngle internal constructor(angle: Double) : PIDOutput, Command() {
 
 
     var rotateToAngleRate: Double = 0.toDouble()
@@ -32,7 +30,7 @@ class TurnToAngle internal constructor() : PIDOutput, Command() {
 
     val kToleranceDegrees = 2.0
 
-    val kTargetAngleDegrees = 90.0
+    val kTargetAngleDegrees = angle
 
     var ahrs = AHRS(SPI.Port.kMXP);
 
