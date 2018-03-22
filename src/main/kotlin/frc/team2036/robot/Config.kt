@@ -20,8 +20,8 @@ val config = kton {
         "ticksPerRev" to 360 // TODO
     }
     "ports" {
-        "koolKoyJoystick" to 5
-        "koolKirljoystick" to 6
+        "koolKoyJoystick" to 0
+        "koolKirljoystick" to 1
         "wheels" {
             /**
              * Ports for real robot:
