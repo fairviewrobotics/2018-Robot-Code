@@ -3,10 +3,9 @@ package frc.team2036.robot
 import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.IterativeRobot
 import edu.wpi.first.wpilibj.command.Scheduler
-import frc.team2036.robot.autonomous.CenterAutonomous
-import frc.team2036.robot.autonomous.SideAutonomous
-import frc.team2036.robot.autonomous.StraightAutonomous
+import frc.team2036.robot.autonomous.GoToDistance
 import frc.team2036.robot.autonomous.SwitchSide
+import frc.team2036.robot.autonomous.TurnToAngle
 import frc.team2036.robot.cube.cubeGrip
 import frc.team2036.robot.drivetrain.drivetrain
 import frc.team2036.robot.elevator.elevator
@@ -61,26 +60,28 @@ class Robot : IterativeRobot() {
 
         val scheduler = Scheduler.getInstance()
 
-        scheduler.add(when (startPosition) {
-            POSITION.LEFT -> {
-                when (switchPosition) {
-                    SwitchSide.LEFT -> StraightAutonomous()
-                    SwitchSide.RIGHT -> SideAutonomous(switchPosition)
-                }
-            }
-            POSITION.CENTER -> {
-                when (switchPosition) {
-                    SwitchSide.LEFT -> CenterAutonomous(switchPosition)
-                    SwitchSide.RIGHT -> CenterAutonomous(switchPosition)
-                }
-            }
-            POSITION.RIGHT -> {
-                when (switchPosition) {
-                    SwitchSide.LEFT -> SideAutonomous(switchPosition)
-                    SwitchSide.RIGHT -> StraightAutonomous()
-                }
-            }
-        })
+//        scheduler.add(when (startPosition) {
+//            POSITION.LEFT -> {
+//                when (switchPosition) {
+//                    SwitchSide.LEFT -> StraightAutonomous()
+//                    SwitchSide.RIGHT -> SideAutonomous(switchPosition)
+//                }
+//            }
+//            POSITION.CENTER -> {
+//                when (switchPosition) {
+//                    SwitchSide.LEFT -> CenterAutonomous(switchPosition)
+//                    SwitchSide.RIGHT -> CenterAutonomous(switchPosition)
+//                }
+//            }
+//            POSITION.RIGHT -> {
+//                when (switchPosition) {
+//                    SwitchSide.LEFT -> SideAutonomous(switchPosition)
+//                    SwitchSide.RIGHT -> StraightAutonomous()
+//                }
+//            }
+//        })
+        scheduler.add(GoToDistance(5.0 * 12.0))
+        scheduler.add(TurnToAngle(90.0))
     }
 
     /**
