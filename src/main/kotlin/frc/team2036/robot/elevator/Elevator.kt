@@ -45,6 +45,8 @@ class Elevator internal constructor() : Subsystem() {
      */
     fun drive(y: Double) {
         logger.log("Elevator Y", y, LogType.DEBUG)
+        println(topLimit.get())
+        print(bottomLimit.get())
         elevatorMotor.set(ControlMode.PercentOutput, y * motorSpeed)
     }
 
