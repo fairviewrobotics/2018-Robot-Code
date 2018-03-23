@@ -44,6 +44,7 @@ class Robot : IterativeRobot() {
      * Starts running the given autonomous command
      */
     override fun autonomousInit() {
+        Scheduler.getInstance().removeAll()
         logger.log("Program Flow", "Robot autonomous starting.", LogType.TRACE)
         gameData = DriverStation.getInstance().gameSpecificMessage
 
@@ -93,6 +94,7 @@ class Robot : IterativeRobot() {
      * Cancels the autonomous command and starts the followJoystick command
      */
     override fun teleopInit() {
+        Scheduler.getInstance().removeAll()
         logger.log("Program Flow", "Robot teleoperated starting.", LogType.TRACE)
     }
 
