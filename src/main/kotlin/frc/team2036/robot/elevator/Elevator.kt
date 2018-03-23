@@ -44,10 +44,16 @@ class Elevator internal constructor() : Subsystem() {
      * TODO: rename?
      */
     fun drive(y: Double) {
+        var realY = y
         logger.log("Elevator Y", y, LogType.DEBUG)
-        println(topLimit.get())
-        print(bottomLimit.get())
-        elevatorMotor.set(ControlMode.PercentOutput, y * motorSpeed)
+        println("Top Limit: ${topLimit.get()}")
+        print("Bottom Limit: ${bottomLimit.get()}")
+        if (topLimit.get() && realY > 0) {
+            realY = 0.0
+        } else if (bottomLimit.get() && realY < 0) {
+            realY = 0.0
+        }
+        elevatorMotor.set(ControlMode.PercentOutput, realY * motorSpeed)
     }
 
     /**
