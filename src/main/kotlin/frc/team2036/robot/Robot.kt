@@ -28,20 +28,13 @@ class Robot : IterativeRobot() {
 
     private val startPosition = POSITION.CENTER
 
-    private var gameData: String = ""
-
+    private var gameData: String = DriverStation.getInstance().gameSpecificMessage
 
 
     //All commands the robot can see; this isn't used and this field is black magic that makes the code work
     private val robotSubsystems = arrayOf(cubeGrip, drivetrain, elevator, ramp)
 
-    /**
-     * The entry point for a robot, run at the very beginning
-     * Entry code doesn't go in a constructor, goes here
-     */
     override fun robotInit() {
-
-        gameData = DriverStation.getInstance().getGameSpecificMessage()
         logger.log("Program Flow", "Robot initializing with ${robotSubsystems.size} subsystems.", LogType.TRACE)
         initButtons() //TODO: move this to teleopInit?
     }
@@ -52,6 +45,7 @@ class Robot : IterativeRobot() {
      */
     override fun autonomousInit() {
         logger.log("Program Flow", "Robot autonomous starting.", LogType.TRACE)
+        gameData = DriverStation.getInstance().gameSpecificMessage
 
         val switchPosition = when (gameData[0].toUpperCase()) {
             'L' -> SwitchSide.LEFT
