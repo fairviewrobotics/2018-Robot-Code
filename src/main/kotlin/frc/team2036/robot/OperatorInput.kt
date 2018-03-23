@@ -16,8 +16,8 @@ val koolKirljoystick = XboxController(config("ports")["koolKirljoystick"] as Int
 fun initButtons() {
     logger.log("Joystick", "Binding commands to buttons.", LogType.TRACE)
 
-    val elevatorToTopButton = JoystickButton(koolKirljoystick, 3)
-    val elevatorToBottomButton = JoystickButton(koolKirljoystick, 0)
+    val elevatorToTopButton = JoystickButton(koolKirljoystick, 4)
+    val elevatorToBottomButton = JoystickButton(koolKirljoystick, 1)
 
     elevatorToTopButton.whenPressed(toTop)
     elevatorToBottomButton.whenPressed(toBottom)
