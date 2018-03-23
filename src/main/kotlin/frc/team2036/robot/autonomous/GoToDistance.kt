@@ -12,7 +12,7 @@ import frc.team2036.robot.drivetrain.drivetrain
 /**
  * A command that defines what happens in the autonomous period
  */
-class GoToDistance internal constructor(distance: Double) : PIDOutput, Command() {
+class GoToDistance internal constructor(distance: Double, timeToStop: Double = 0.0) : PIDOutput, Command() {
 
     var rotateToAngleRate: Double = 0.toDouble()
 
@@ -41,11 +41,17 @@ class GoToDistance internal constructor(distance: Double) : PIDOutput, Command()
     val ticksPerRev = config("sizes")["ticksPerRev"] as Double //how many encoder ticks happen in 1 wheel revolution
     val circumference = diameter * Math.PI //circumference of a wheel
 
+    var time: Long
+
+    var startTime: Long = 0
+
     /**
      * When the command is created, it specifies that it needs the drivetrain and cubegrip
      */
     init {
         requires(drivetrain)
+
+        this.time = (timeToStop * 1E9).toLong()
 
         turnController.setInputRange(-180.0, 180.0)
         turnController.setOutputRange(-1.0, 1.0)
@@ -84,7 +90,11 @@ class GoToDistance internal constructor(distance: Double) : PIDOutput, Command()
      * The command finishes once the drivetrain has moved past the specified distance
      */
     override fun isFinished(): Boolean {
-        return pulsesToInches(getAverageEncoderPosition().toInt()) > distance
+        if (time == 0L || time < (System.nanoTime() - startTime)) {
+            return pulsesToInches(getAverageEncoderPosition().toInt()) > distance
+        } else {
+            return true
+        }
     }
 
     fun pulsesToInches(pulses: Int): Double {
