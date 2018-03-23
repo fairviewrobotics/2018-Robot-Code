@@ -16,8 +16,8 @@ import org.jire.kton.kton
  */
 val config = kton {
     "sizes" {
-        "diameter" to 6 // in inches TODO
-        "ticksPerRev" to 360 // TODO
+        "diameter" to 6.0 // in inches TODO
+        "ticksPerRev" to 360.0 // TODO
     }
     "ports" {
         "koolKoyJoystick" to 0
