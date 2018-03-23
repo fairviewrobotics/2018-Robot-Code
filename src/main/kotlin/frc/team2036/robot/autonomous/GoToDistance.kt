@@ -84,7 +84,7 @@ class GoToDistance internal constructor(distance: Double) : PIDOutput, Command()
      * The command finishes once the drivetrain has moved past the specified distance
      */
     override fun isFinished(): Boolean {
-        return pulsesToInches(getAverageEncoderPosition() as Int) > distance
+        return pulsesToInches(getAverageEncoderPosition().toInt()) > distance
     }
 
     fun pulsesToInches(pulses: Int): Double {
@@ -92,7 +92,7 @@ class GoToDistance internal constructor(distance: Double) : PIDOutput, Command()
     }
 
     fun inchesToPulses(inches: Double): Int {
-        return (inches / circumference * ticksPerRev) as Int
+        return (inches / circumference * ticksPerRev).toInt()
     }
 
     /**
@@ -109,6 +109,6 @@ class GoToDistance internal constructor(distance: Double) : PIDOutput, Command()
     }
 
     private fun getAverageEncoderPosition(): Double {
-        return (drivetrain.leftEncoder.get() as Double + drivetrain.rightEncoder.get() as Double) / 2
+        return (drivetrain.leftEncoder.get().toDouble() + drivetrain.rightEncoder.get().toDouble()) / 2
     }
 }
