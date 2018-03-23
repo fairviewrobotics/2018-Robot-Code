@@ -40,6 +40,7 @@ class Robot : IterativeRobot() {
      * Entry code doesn't go in a constructor, goes here
      */
     override fun robotInit() {
+
         gameData = DriverStation.getInstance().getGameSpecificMessage()
         logger.log("Program Flow", "Robot initializing with ${robotSubsystems.size} subsystems.", LogType.TRACE)
         initButtons() //TODO: move this to teleopInit?

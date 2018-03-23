@@ -47,6 +47,7 @@ class Drivetrain internal constructor() : Subsystem() {
     init {
         frontLeft.inverted = true
         ahrs.zeroYaw()
+        drive.isSafetyEnabled = false
     }
 
     /**
