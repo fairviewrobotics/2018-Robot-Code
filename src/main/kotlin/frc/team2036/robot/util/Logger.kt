@@ -1,6 +1,5 @@
 package frc.team2036.robot.util
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import frc.team2036.robot.config
 import java.time.LocalDateTime
 
@@ -42,7 +41,7 @@ class Logger internal constructor() {
      */
     private fun conditionalPrint(message: Message) {
         if (config["verboseLogging"] as Boolean || necessaryLogs.contains(message.tag)) {
-            println(message)
+//            println(message)
         }
         //allMessages.add(logMessage)
     }
@@ -51,9 +50,9 @@ class Logger internal constructor() {
      * Actually logs a message; if the tag is contained in necessaryLogs, the message is one a driver can see
      */
     fun log(tag: String, message: String, type: LogType = LogType.INFO) {
-        val logMessage = Message(tag, message, type)
-        SmartDashboard.putString("{$type}: $tag", message)
-        conditionalPrint(logMessage)
+//        val logMessage = Message(tag, message, type)
+//        SmartDashboard.putString("{$type}: $tag", message)
+//        conditionalPrint(logMessage)
     }
 
     /**
@@ -61,9 +60,9 @@ class Logger internal constructor() {
      * This logging method passes numbers to the dashboard such that they can be graphed if needed
      */
     fun log(tag: String, data: Double, type: LogType = LogType.INFO) {
-        val logMessage = Message(tag, data.toString(), type)
-        SmartDashboard.putNumber("{$type}: $tag", data)
-        conditionalPrint(logMessage)
+//        val logMessage = Message(tag, data.toString(), type)
+//        SmartDashboard.putNumber("{$type}: $tag", data)
+//        conditionalPrint(logMessage)
     }
 
 }
